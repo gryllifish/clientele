@@ -1,4 +1,4 @@
-# clients_app
+# Clientele (`clients_app`)
 
 Flutter portfolio demo: a 3-screen client dashboard focused on smooth
 animations and clean UI, built on a production-grade architecture (Riverpod

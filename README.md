@@ -1,4 +1,4 @@
-# Clients
+# Clientele
 
 A 3-screen Flutter demo focused on **smooth animations** and a **clean,
 modern UI**, built on a production-grade architecture.
