@@ -1,0 +1,22 @@
+{
+  "@@locale": "en",
+  "appTitle": "Clients",
+  "greetingMorning": "Good morning,",
+  "greetingAfternoon": "Good afternoon,",
+  "greetingEvening": "Good evening,",
+  "totalClients": "Total clients",
+  "clientsThisMonth": "This month",
+  "addClient": "Add client",
+  "yourClients": "Your clients",
+  "filterAll": "All",
+  "filterOldest": "Oldest",
+  "filterNewest": "Newest",
+  "filterHot": "Hot",
+  "navHome": "Home",
+  "navInsights": "Insights",
+  "navClients": "Clients",
+  "navSettings": "Settings",
+  "errorLoadData": "We couldn't load your data.",
+  "errorUnexpected": "Something went wrong.",
+  "retry": "Retry"
+}

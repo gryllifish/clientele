@@ -1,0 +1,22 @@
+{
+  "@@locale": "es",
+  "appTitle": "Clientes",
+  "greetingMorning": "Buenos días,",
+  "greetingAfternoon": "Buenas tardes,",
+  "greetingEvening": "Buenas noches,",
+  "totalClients": "Clientes totales",
+  "clientsThisMonth": "Este mes",
+  "addClient": "Agregar cliente",
+  "yourClients": "Tus clientes",
+  "filterAll": "Todos",
+  "filterOldest": "Más antiguos",
+  "filterNewest": "Más recientes",
+  "filterHot": "Destacados",
+  "navHome": "Inicio",
+  "navInsights": "Métricas",
+  "navClients": "Clientes",
+  "navSettings": "Ajustes",
+  "errorLoadData": "No pudimos cargar tus datos.",
+  "errorUnexpected": "Algo salió mal.",
+  "retry": "Reintentar"
+}

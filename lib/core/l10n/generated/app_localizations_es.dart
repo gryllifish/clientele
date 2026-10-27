@@ -1,0 +1,67 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for Spanish Castilian (`es`).
+class AppLocalizationsEs extends AppLocalizations {
+  AppLocalizationsEs([String locale = 'es']) : super(locale);
+
+  @override
+  String get appTitle => 'Clientes';
+
+  @override
+  String get greetingMorning => 'Buenos días,';
+
+  @override
+  String get greetingAfternoon => 'Buenas tardes,';
+
+  @override
+  String get greetingEvening => 'Buenas noches,';
+
+  @override
+  String get totalClients => 'Clientes totales';
+
+  @override
+  String get clientsThisMonth => 'Este mes';
+
+  @override
+  String get addClient => 'Agregar cliente';
+
+  @override
+  String get yourClients => 'Tus clientes';
+
+  @override
+  String get filterAll => 'Todos';
+
+  @override
+  String get filterOldest => 'Más antiguos';
+
+  @override
+  String get filterNewest => 'Más recientes';
+
+  @override
+  String get filterHot => 'Destacados';
+
+  @override
+  String get navHome => 'Inicio';
+
+  @override
+  String get navInsights => 'Métricas';
+
+  @override
+  String get navClients => 'Clientes';
+
+  @override
+  String get navSettings => 'Ajustes';
+
+  @override
+  String get errorLoadData => 'No pudimos cargar tus datos.';
+
+  @override
+  String get errorUnexpected => 'Algo salió mal.';
+
+  @override
+  String get retry => 'Reintentar';
+}
