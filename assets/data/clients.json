@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "name": "Maya Chen",
+    "role": "Brand designer",
+    "photo_asset": "assets/images/clients/client_01.jpg",
+    "onboarded_at": "2025-10-26T10:00:00Z",
+    "is_hot": true
+  },
+  {
+    "id": 2,
+    "name": "Nora Blake",
+    "role": "Art director",
+    "photo_asset": "assets/images/clients/client_02.jpg",
+    "onboarded_at": "2026-05-21T10:00:00Z",
+    "is_hot": false
+  },
+  {
+    "id": 3,
+    "name": "Zoe Martin",
+    "role": "Photographer",
+    "photo_asset": "assets/images/clients/client_03.jpg",
+    "onboarded_at": "2025-01-29T10:00:00Z",
+    "is_hot": true
+  },
+  {
+    "id": 4,
+    "name": "Theo Grant",
+    "role": "Product lead",
+    "photo_asset": "assets/images/clients/client_04.jpg",
+    "onboarded_at": "2026-02-18T10:00:00Z",
+    "is_hot": false
+  },
+  {
+    "id": 5,
+    "name": "Iris Cole",
+    "role": "UX researcher",
+    "photo_asset": "assets/images/clients/client_05.jpg",
+    "onboarded_at": "2026-05-23T10:00:00Z",
+    "is_hot": true
+  },
+  {
+    "id": 6,
+    "name": "Lena Park",
+    "role": "Illustrator",
+    "photo_asset": "assets/images/clients/client_06.jpg",
+    "onboarded_at": "2025-06-28T10:00:00Z",
+    "is_hot": false
+  },
+  {
+    "id": 7,
+    "name": "Ava Brooks",
+    "role": "Copywriter",
+    "photo_asset": "assets/images/clients/client_07.jpg",
+    "onboarded_at": "2026-04-14T10:00:00Z",
+    "is_hot": false
+  },
+  {
+    "id": 8,
+    "name": "Sam Rivera",
+    "role": "Motion designer",
+    "photo_asset": "assets/images/clients/client_08.jpg",
+    "onboarded_at": "2025-12-25T10:00:00Z",
+    "is_hot": true
+  }
+]

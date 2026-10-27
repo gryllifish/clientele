@@ -1,0 +1,26 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'client.freezed.dart';
+
+/// A client of the signed-in user.
+@freezed
+abstract class Client with _$Client {
+  const factory Client({
+    required int id,
+    required String name,
+    required String role,
+
+    /// Bundled image path, e.g. `assets/images/clients/client_01.jpg`.
+    required String photoAsset,
+    required DateTime onboardedAt,
+
+    /// Highlighted clients, shown under the "Hot" filter.
+    @Default(false) bool isHot,
+  }) = _Client;
+
+  const Client._();
+
+  /// Whether this client was onboarded in the same calendar month as [date].
+  bool wasOnboardedInMonthOf(DateTime date) =>
+      onboardedAt.year == date.year && onboardedAt.month == date.month;
+}
