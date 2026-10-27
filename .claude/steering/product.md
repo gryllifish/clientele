@@ -27,9 +27,12 @@ Auth, backend/API, creating or editing clients, bottom-nav destinations
 other than Home, persistence.
 
 ## Design
-- Visual reference: _TODO (link to Dribbble/Figma or add images to
-  `docs/design/`)._
-- Palette and type are defined in `lib/core/theme/`.
+- Figma (all screens): https://www.figma.com/design/nuaSmkMecIrbciL60Bxyv3/Untitled?node-id=103-3
+- Per-screen frame links: _TODO (right click a frame → Copy link to
+  selection)._ Read one frame at a time through the Figma MCP server; never
+  load the whole file.
+- Figma is the source of truth for visuals; tokens are mirrored in
+  `lib/core/theme/`.
 
 ## Success criteria
 - Animations run at 60 fps on a mid-range phone.
