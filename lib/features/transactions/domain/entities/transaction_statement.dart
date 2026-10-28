@@ -20,11 +20,14 @@ abstract class TransactionStatement with _$TransactionStatement {
   /// Splits [transactions] into the [windowDays] calendar days ending on
   /// [now] (today included) and the same span right before them.
   ///
+  /// With a [clientId], only that client's payments count.
+  ///
   /// Days are compared by calendar date, so a payment later today still
   /// counts as today's.
   factory TransactionStatement.of(
     List<Transaction> transactions, {
     required DateTime now,
+    int? clientId,
     int windowDays = defaultWindowDays,
   }) {
     final today = _dateOnly(now);
@@ -32,6 +35,7 @@ abstract class TransactionStatement with _$TransactionStatement {
     var previousTotal = 0;
 
     for (final transaction in transactions) {
+      if (clientId != null && transaction.clientId != clientId) continue;
       final daysAgo = today
           .difference(_dateOnly(transaction.occurredAt))
           .inDays;

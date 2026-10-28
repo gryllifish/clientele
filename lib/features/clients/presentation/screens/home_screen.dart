@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
       value: SystemUiOverlayStyle.dark,
       child: Scaffold(
         extendBody: true,
-        bottomNavigationBar: AppBottomNav(),
+        bottomNavigationBar: AppBottomNav(current: AppTab.home),
         body: CustomScrollView(
           slivers: [
             SliverSafeArea(

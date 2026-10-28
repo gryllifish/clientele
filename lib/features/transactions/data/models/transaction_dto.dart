@@ -9,6 +9,7 @@ abstract class TransactionDto with _$TransactionDto {
   const factory TransactionDto({
     required int id,
     required String title,
+    required int clientId,
     required String clientName,
     required int amount,
     required DateTime occurredAt,

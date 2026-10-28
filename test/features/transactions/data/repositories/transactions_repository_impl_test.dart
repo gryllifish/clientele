@@ -24,6 +24,7 @@ void main() {
     final dto = TransactionDto(
       id: 1,
       title: 'Brand direction',
+      clientId: 1,
       clientName: 'Maya Chen',
       amount: 4200,
       occurredAt: DateTime(2024, 5, 24),

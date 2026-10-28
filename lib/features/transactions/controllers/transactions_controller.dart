@@ -17,13 +17,33 @@ class TransactionsController extends _$TransactionsController {
   void retry() => ref.invalidateSelf();
 }
 
-/// The rolling statement shown on the transactions screen.
+/// The rolling statement shown on the payments screen, for every client
+/// or only the one with [clientId].
 @riverpod
-AsyncValue<TransactionStatement> transactionStatement(Ref ref) {
+AsyncValue<TransactionStatement> transactionStatement(
+  Ref ref,
+  int? clientId,
+) {
   final now = ref.watch(nowProvider);
   return ref
       .watch(transactionsControllerProvider)
       .whenData(
-        (transactions) => TransactionStatement.of(transactions, now: now),
+        (transactions) => TransactionStatement.of(
+          transactions,
+          now: now,
+          clientId: clientId,
+        ),
       );
 }
+
+/// Name of the client with [clientId] as it appears on their payments, or
+/// null when they have none.
+@riverpod
+AsyncValue<String?> payerName(Ref ref, int clientId) => ref
+    .watch(transactionsControllerProvider)
+    .whenData(
+      (transactions) => transactions
+          .where((transaction) => transaction.clientId == clientId)
+          .firstOrNull
+          ?.clientName,
+    );

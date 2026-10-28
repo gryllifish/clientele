@@ -7,8 +7,15 @@ abstract final class AppRoutes {
   static const clientProfile = 'clients/:$clientIdParam';
   static const clientIdParam = 'id';
 
-  /// Top-level and pushed, so back returns to wherever it was opened from.
-  static const transactions = '/transactions';
+  /// Second tab. Pushed from a profile with [paymentsClientParam], it shows
+  /// only that client's payments and back returns to the profile.
+  static const payments = '/payments';
+  static const paymentsClientParam = 'client';
+
+  static String paymentsPath({int? clientId}) => switch (clientId) {
+    final int id => '$payments?$paymentsClientParam=$id',
+    null => payments,
+  };
 
   static String clientProfilePath(int clientId) => '/clients/$clientId';
 }

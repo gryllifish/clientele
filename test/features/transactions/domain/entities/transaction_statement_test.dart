@@ -33,6 +33,18 @@ void main() {
     expect(onlyRecent.change, isNull);
   });
 
+  test('with a client, only their payments count', () {
+    final forClient = TransactionStatement.of(
+      sampleTransactions,
+      now: fixedNow,
+      clientId: 2,
+    );
+
+    expect(forClient.recent.map((t) => t.id), [2]);
+    expect(forClient.total, 200);
+    expect(forClient.change, isNull);
+  });
+
   test('an empty list gives an empty statement', () {
     final empty = TransactionStatement.of(const [], now: fixedNow);
 

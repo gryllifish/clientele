@@ -1,18 +1,17 @@
-import 'dart:async';
-
 import 'package:clients_app/core/error/failure.dart';
 import 'package:clients_app/core/l10n/failure_messages.dart';
 import 'package:clients_app/core/l10n/l10n.dart';
-import 'package:clients_app/core/router/app_routes.dart';
 import 'package:clients_app/core/theme/app_colors.dart';
 import 'package:clients_app/core/theme/app_radius.dart';
 import 'package:clients_app/core/theme/app_spacing.dart';
 import 'package:clients_app/core/theme/app_text_styles.dart';
 import 'package:clients_app/features/clients/controllers/client_profile_controller.dart';
 import 'package:clients_app/features/clients/controllers/clients_controller.dart';
+import 'package:clients_app/features/clients/domain/entities/client.dart';
 import 'package:clients_app/features/clients/domain/entities/client_profile.dart';
 import 'package:clients_app/features/clients/presentation/widgets/client_profile_header.dart';
 import 'package:clients_app/features/clients/presentation/widgets/next_session_card.dart';
+import 'package:clients_app/features/transactions/presentation/widgets/client_payments_card.dart';
 import 'package:clients_app/shared/widgets/app_top_bar.dart';
 import 'package:clients_app/shared/widgets/circle_icon_button.dart';
 import 'package:clients_app/shared/widgets/error_view.dart';
@@ -52,6 +51,7 @@ class ClientProfileScreen extends ConsumerWidget {
                 SliverFillRemaining(
                   hasScrollBody: false,
                   child: _ProfileBody(
+                    client: value,
                     profile: profile,
                     onRetry: ref
                         .read(
@@ -112,12 +112,18 @@ class _ProfileTopBar extends StatelessWidget {
 
 /// White sheet with the next session and the latest note.
 class _ProfileBody extends StatelessWidget {
-  const _ProfileBody({required this.profile, required this.onRetry});
+  const _ProfileBody({
+    required this.client,
+    required this.profile,
+    required this.onRetry,
+  });
 
+  final Client client;
   final AsyncValue<ClientProfile> profile;
   final VoidCallback onRetry;
 
   static const _padding = EdgeInsets.fromLTRB(19, 22, 19, AppSpacing.xxxl);
+  static const _cardGap = 10.0;
 
   @override
   Widget build(BuildContext context) {
@@ -132,11 +138,9 @@ class _ProfileBody extends StatelessWidget {
           AsyncData(:final value) => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              NextSessionCard(
-                session: value.nextSession,
-                onTap: () =>
-                    unawaited(context.push<void>(AppRoutes.transactions)),
-              ),
+              NextSessionCard(session: value.nextSession),
+              const SizedBox(height: _cardGap),
+              ClientPaymentsCard(clientId: client.id, clientName: client.name),
               _LatestNote(note: value.latestNote),
             ],
           ),

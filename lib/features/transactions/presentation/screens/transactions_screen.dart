@@ -1,6 +1,7 @@
 import 'package:clients_app/core/error/failure.dart';
 import 'package:clients_app/core/l10n/failure_messages.dart';
 import 'package:clients_app/core/l10n/l10n.dart';
+import 'package:clients_app/core/router/app_routes.dart';
 import 'package:clients_app/core/theme/app_colors.dart';
 import 'package:clients_app/core/theme/app_radius.dart';
 import 'package:clients_app/core/theme/app_spacing.dart';
@@ -10,6 +11,7 @@ import 'package:clients_app/features/transactions/domain/entities/transaction.da
 import 'package:clients_app/features/transactions/presentation/widgets/transaction_card.dart';
 import 'package:clients_app/features/transactions/presentation/widgets/transactions_header.dart';
 import 'package:clients_app/shared/providers/clock_provider.dart';
+import 'package:clients_app/shared/widgets/app_bottom_nav.dart';
 import 'package:clients_app/shared/widgets/app_top_bar.dart';
 import 'package:clients_app/shared/widgets/circle_icon_button.dart';
 import 'package:clients_app/shared/widgets/error_view.dart';
@@ -20,18 +22,27 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+/// The Payments tab: income over the last 30 days, for every client or,
+/// when opened from a profile, only for [clientId].
 class TransactionsScreen extends ConsumerWidget {
-  const TransactionsScreen({super.key});
+  const TransactionsScreen({this.clientId, super.key});
+
+  final int? clientId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final statement = ref.watch(transactionStatementProvider);
+    final statement = ref.watch(transactionStatementProvider(clientId));
     final now = ref.watch(nowProvider);
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light,
       child: Scaffold(
         backgroundColor: AppColors.darkBackground,
+        extendBody: true,
+        bottomNavigationBar: const AppBottomNav(
+          current: AppTab.payments,
+          dark: true,
+        ),
         body: CustomScrollView(
           slivers: [
             const SliverSafeArea(
@@ -45,7 +56,11 @@ class TransactionsScreen extends ConsumerWidget {
                 ),
                 SliverFillRemaining(
                   hasScrollBody: false,
-                  child: _RecentActivity(transactions: value.recent, now: now),
+                  child: _LatestPayments(
+                    transactions: value.recent,
+                    now: now,
+                    clientId: clientId,
+                  ),
                 ),
               ],
               AsyncError(:final error) => [
@@ -82,13 +97,16 @@ class _TransactionsTopBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return AppTopBar(
-      leading: CircleIconButton(
-        icon: Icons.chevron_left_rounded,
-        tooltip: l10n.back,
-        onPressed: () => context.pop(),
-        backgroundColor: AppColors.darkIconButton,
-        foregroundColor: AppColors.onDark,
-      ),
+      // A tab has nowhere to go back to; a page pushed from a profile does.
+      leading: context.canPop()
+          ? CircleIconButton(
+              icon: Icons.chevron_left_rounded,
+              tooltip: l10n.back,
+              onPressed: () => context.pop(),
+              backgroundColor: AppColors.darkIconButton,
+              foregroundColor: AppColors.onDark,
+            )
+          : null,
       title: Text(
         l10n.transactionsTitle,
         style: AppTextStyles.pageLabel.copyWith(color: AppColors.onDark),
@@ -104,12 +122,17 @@ class _TransactionsTopBar extends StatelessWidget {
   }
 }
 
-/// Dark sheet listing the period's transactions, which rise in one by one.
-class _RecentActivity extends StatelessWidget {
-  const _RecentActivity({required this.transactions, required this.now});
+/// Dark sheet listing the period's payments, which rise in one by one.
+class _LatestPayments extends StatelessWidget {
+  const _LatestPayments({
+    required this.transactions,
+    required this.now,
+    required this.clientId,
+  });
 
   final List<Transaction> transactions;
   final DateTime now;
+  final int? clientId;
 
   static const _padding = EdgeInsets.fromLTRB(17, 22, 17, 30);
   static const _titlePadding = EdgeInsets.fromLTRB(5, 0, 5, AppSpacing.lg);
@@ -120,13 +143,17 @@ class _RecentActivity extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
+    // Leaves room for the bottom bar drawn over the content.
+    final bottomInset =
+        MediaQuery.paddingOf(context).bottom + AppBottomNav.height;
+
     return DecoratedBox(
       decoration: const BoxDecoration(
         color: AppColors.darkSurface,
         borderRadius: AppRadius.sheetTop,
       ),
       child: Padding(
-        padding: _padding,
+        padding: _padding.add(EdgeInsets.only(bottom: bottomInset)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -136,7 +163,7 @@ class _RecentActivity extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      l10n.recentActivity,
+                      l10n.latestPayments,
                       style: AppTextStyles.cardTitle.copyWith(
                         color: AppColors.onDark,
                       ),
@@ -151,6 +178,7 @@ class _RecentActivity extends StatelessWidget {
                 ],
               ),
             ),
+            if (clientId case final int id) _ClientFilterChip(clientId: id),
             if (transactions.isEmpty)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: AppSpacing.xxxl),
@@ -176,6 +204,62 @@ class _RecentActivity extends StatelessWidget {
                 ),
               ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Shows which client the list is narrowed to, and clears it on tap.
+class _ClientFilterChip extends ConsumerWidget {
+  const _ClientFilterChip({required this.clientId});
+
+  final int clientId;
+
+  static const _padding = EdgeInsets.fromLTRB(5, 0, 5, AppSpacing.lg);
+  static const _chipPadding = EdgeInsets.fromLTRB(14, 8, 10, 8);
+  static const _closeIconSize = 14.0;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final name = ref.watch(payerNameProvider(clientId)).value;
+    if (name == null) return const SizedBox.shrink();
+    final l10n = context.l10n;
+
+    return Padding(
+      padding: _padding,
+      child: Align(
+        alignment: AlignmentDirectional.centerStart,
+        child: Material(
+          color: AppColors.darkIconButton,
+          shape: const StadiumBorder(),
+          child: InkWell(
+            customBorder: const StadiumBorder(),
+            onTap: () => context.go(AppRoutes.paymentsPath()),
+            child: Tooltip(
+              message: l10n.showAllClients,
+              child: Padding(
+                padding: _chipPadding,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  spacing: AppSpacing.xs,
+                  children: [
+                    Text(
+                      name,
+                      style: AppTextStyles.chip.copyWith(
+                        color: AppColors.onDark,
+                      ),
+                    ),
+                    const Icon(
+                      Icons.close_rounded,
+                      size: _closeIconSize,
+                      color: AppColors.onDarkMuted,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
         ),
       ),
     );

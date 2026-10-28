@@ -18,12 +18,16 @@ is no backend or authentication.
 1. **Dashboard** (done): greeting, stats, filters (All / Oldest / Newest /
    Hot) and a client grid that animates between filter results.
 2. **Client profile** (done): photo flies in from the card with a `Hero`
-   that also morphs its corner radius; a calendar card leads to screen 3.
-3. **Transaction history** (done): dark screen with a rolling 30-day total
-   that counts up, its change against the previous 30 days, and colorful
-   cards with stacked client avatars that rise in one by one. The design's
-   "May 2024 / from April" becomes a rolling window so the shifted mock
-   data never straddles a month boundary.
+   that also morphs its corner radius. Shows the next session (info only)
+   and a "Payments from <client>" card that opens the Payments tab
+   narrowed to that client.
+3. **Payments tab** (done): second bottom-bar tab. Dark screen with a
+   rolling 30-day total that counts up, its change against the previous
+   30 days, and colorful cards with stacked client avatars that rise in
+   one by one. Deviations from the design, on purpose: the design reached
+   it from the next-session card, which made no sense, so it became a tab;
+   and its "May 2024 / from April" became a rolling window so the shifted
+   mock data never straddles a month boundary.
 
 4. **Search** (done): the top bar's search unfolds into a field that
    narrows the grid by name or role.

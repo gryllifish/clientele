@@ -7,6 +7,7 @@ Transaction buildTransaction({
 }) => Transaction(
   id: id,
   title: 'Project $id',
+  clientId: id,
   clientName: 'Client $id',
   amount: amount,
   occurredAt: occurredAt,

@@ -5,6 +5,7 @@ extension TransactionDtoMapper on TransactionDto {
   Transaction toEntity() => Transaction(
     id: id,
     title: title,
+    clientId: clientId,
     clientName: clientName,
     amount: amount,
     occurredAt: occurredAt,

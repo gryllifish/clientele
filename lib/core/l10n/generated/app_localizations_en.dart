@@ -48,7 +48,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navHome => 'Home';
 
   @override
-  String get navInsights => 'Insights';
+  String get navPayments => 'Payments';
 
   @override
   String get navClients => 'Clients';
@@ -122,7 +122,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get valuePlaceholder => '–';
 
   @override
-  String get transactionsTitle => 'Transactions';
+  String get transactionsTitle => 'Payments';
 
   @override
   String get transactionsPeriod => 'Last 30 days';
@@ -139,15 +139,15 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get recentActivity => 'Recent activity';
+  String get latestPayments => 'Latest payments';
 
   @override
   String transactionCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count transactions',
-      one: '1 transaction',
+      other: '$count payments',
+      one: '1 payment',
     );
     return '$_temp0';
   }
@@ -181,4 +181,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notInDemo => 'Not part of this demo';
+
+  @override
+  String paymentsFromClient(String name) {
+    return 'Payments from $name';
+  }
+
+  @override
+  String clientPaymentsSummary(String amount, int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count payments',
+      one: '1 payment',
+      zero: 'no payments',
+    );
+    return '$amount · $_temp0 in 30 days';
+  }
+
+  @override
+  String get showAllClients => 'Show all clients';
 }

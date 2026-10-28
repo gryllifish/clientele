@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 mixin _$Transaction {
 
  int get id; String get title;/// The client who paid.
- String get clientName;/// In whole US dollars.
+ int get clientId; String get clientName;/// In whole US dollars.
  int get amount; DateTime get occurredAt;/// Clients involved in the work, in display order.
  List<TransactionParticipant> get participants;
 /// Create a copy of Transaction
@@ -28,16 +28,16 @@ $TransactionCopyWith<Transaction> get copyWith => _$TransactionCopyWithImpl<Tran
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Transaction&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.clientName, clientName) || other.clientName == clientName)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.occurredAt, occurredAt) || other.occurredAt == occurredAt)&&const DeepCollectionEquality().equals(other.participants, participants));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Transaction&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.clientId, clientId) || other.clientId == clientId)&&(identical(other.clientName, clientName) || other.clientName == clientName)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.occurredAt, occurredAt) || other.occurredAt == occurredAt)&&const DeepCollectionEquality().equals(other.participants, participants));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,title,clientName,amount,occurredAt,const DeepCollectionEquality().hash(participants));
+int get hashCode => Object.hash(runtimeType,id,title,clientId,clientName,amount,occurredAt,const DeepCollectionEquality().hash(participants));
 
 @override
 String toString() {
-  return 'Transaction(id: $id, title: $title, clientName: $clientName, amount: $amount, occurredAt: $occurredAt, participants: $participants)';
+  return 'Transaction(id: $id, title: $title, clientId: $clientId, clientName: $clientName, amount: $amount, occurredAt: $occurredAt, participants: $participants)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $TransactionCopyWith<$Res>  {
   factory $TransactionCopyWith(Transaction value, $Res Function(Transaction) _then) = _$TransactionCopyWithImpl;
 @useResult
 $Res call({
- int id, String title, String clientName, int amount, DateTime occurredAt, List<TransactionParticipant> participants
+ int id, String title, int clientId, String clientName, int amount, DateTime occurredAt, List<TransactionParticipant> participants
 });
 
 
@@ -65,11 +65,12 @@ class _$TransactionCopyWithImpl<$Res>
 
 /// Create a copy of Transaction
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? clientName = null,Object? amount = null,Object? occurredAt = null,Object? participants = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? clientId = null,Object? clientName = null,Object? amount = null,Object? occurredAt = null,Object? participants = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,clientName: null == clientName ? _self.clientName : clientName // ignore: cast_nullable_to_non_nullable
+as String,clientId: null == clientId ? _self.clientId : clientId // ignore: cast_nullable_to_non_nullable
+as int,clientName: null == clientName ? _self.clientName : clientName // ignore: cast_nullable_to_non_nullable
 as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as int,occurredAt: null == occurredAt ? _self.occurredAt : occurredAt // ignore: cast_nullable_to_non_nullable
 as DateTime,participants: null == participants ? _self.participants : participants // ignore: cast_nullable_to_non_nullable
@@ -158,10 +159,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String title,  String clientName,  int amount,  DateTime occurredAt,  List<TransactionParticipant> participants)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String title,  int clientId,  String clientName,  int amount,  DateTime occurredAt,  List<TransactionParticipant> participants)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Transaction() when $default != null:
-return $default(_that.id,_that.title,_that.clientName,_that.amount,_that.occurredAt,_that.participants);case _:
+return $default(_that.id,_that.title,_that.clientId,_that.clientName,_that.amount,_that.occurredAt,_that.participants);case _:
   return orElse();
 
 }
@@ -179,10 +180,10 @@ return $default(_that.id,_that.title,_that.clientName,_that.amount,_that.occurre
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String title,  String clientName,  int amount,  DateTime occurredAt,  List<TransactionParticipant> participants)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String title,  int clientId,  String clientName,  int amount,  DateTime occurredAt,  List<TransactionParticipant> participants)  $default,) {final _that = this;
 switch (_that) {
 case _Transaction():
-return $default(_that.id,_that.title,_that.clientName,_that.amount,_that.occurredAt,_that.participants);case _:
+return $default(_that.id,_that.title,_that.clientId,_that.clientName,_that.amount,_that.occurredAt,_that.participants);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -199,10 +200,10 @@ return $default(_that.id,_that.title,_that.clientName,_that.amount,_that.occurre
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String title,  String clientName,  int amount,  DateTime occurredAt,  List<TransactionParticipant> participants)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String title,  int clientId,  String clientName,  int amount,  DateTime occurredAt,  List<TransactionParticipant> participants)?  $default,) {final _that = this;
 switch (_that) {
 case _Transaction() when $default != null:
-return $default(_that.id,_that.title,_that.clientName,_that.amount,_that.occurredAt,_that.participants);case _:
+return $default(_that.id,_that.title,_that.clientId,_that.clientName,_that.amount,_that.occurredAt,_that.participants);case _:
   return null;
 
 }
@@ -214,12 +215,13 @@ return $default(_that.id,_that.title,_that.clientName,_that.amount,_that.occurre
 
 
 class _Transaction implements Transaction {
-  const _Transaction({required this.id, required this.title, required this.clientName, required this.amount, required this.occurredAt, required final  List<TransactionParticipant> participants}): _participants = participants;
+  const _Transaction({required this.id, required this.title, required this.clientId, required this.clientName, required this.amount, required this.occurredAt, required final  List<TransactionParticipant> participants}): _participants = participants;
   
 
 @override final  int id;
 @override final  String title;
 /// The client who paid.
+@override final  int clientId;
 @override final  String clientName;
 /// In whole US dollars.
 @override final  int amount;
@@ -244,16 +246,16 @@ _$TransactionCopyWith<_Transaction> get copyWith => __$TransactionCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Transaction&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.clientName, clientName) || other.clientName == clientName)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.occurredAt, occurredAt) || other.occurredAt == occurredAt)&&const DeepCollectionEquality().equals(other._participants, _participants));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Transaction&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.clientId, clientId) || other.clientId == clientId)&&(identical(other.clientName, clientName) || other.clientName == clientName)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.occurredAt, occurredAt) || other.occurredAt == occurredAt)&&const DeepCollectionEquality().equals(other._participants, _participants));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,title,clientName,amount,occurredAt,const DeepCollectionEquality().hash(_participants));
+int get hashCode => Object.hash(runtimeType,id,title,clientId,clientName,amount,occurredAt,const DeepCollectionEquality().hash(_participants));
 
 @override
 String toString() {
-  return 'Transaction(id: $id, title: $title, clientName: $clientName, amount: $amount, occurredAt: $occurredAt, participants: $participants)';
+  return 'Transaction(id: $id, title: $title, clientId: $clientId, clientName: $clientName, amount: $amount, occurredAt: $occurredAt, participants: $participants)';
 }
 
 
@@ -264,7 +266,7 @@ abstract mixin class _$TransactionCopyWith<$Res> implements $TransactionCopyWith
   factory _$TransactionCopyWith(_Transaction value, $Res Function(_Transaction) _then) = __$TransactionCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String title, String clientName, int amount, DateTime occurredAt, List<TransactionParticipant> participants
+ int id, String title, int clientId, String clientName, int amount, DateTime occurredAt, List<TransactionParticipant> participants
 });
 
 
@@ -281,11 +283,12 @@ class __$TransactionCopyWithImpl<$Res>
 
 /// Create a copy of Transaction
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? clientName = null,Object? amount = null,Object? occurredAt = null,Object? participants = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? clientId = null,Object? clientName = null,Object? amount = null,Object? occurredAt = null,Object? participants = null,}) {
   return _then(_Transaction(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,clientName: null == clientName ? _self.clientName : clientName // ignore: cast_nullable_to_non_nullable
+as String,clientId: null == clientId ? _self.clientId : clientId // ignore: cast_nullable_to_non_nullable
+as int,clientName: null == clientName ? _self.clientName : clientName // ignore: cast_nullable_to_non_nullable
 as String,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as int,occurredAt: null == occurredAt ? _self.occurredAt : occurredAt // ignore: cast_nullable_to_non_nullable
 as DateTime,participants: null == participants ? _self._participants : participants // ignore: cast_nullable_to_non_nullable

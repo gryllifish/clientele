@@ -176,11 +176,11 @@ abstract class AppLocalizations {
   /// **'Home'**
   String get navHome;
 
-  /// No description provided for @navInsights.
+  /// No description provided for @navPayments.
   ///
   /// In en, this message translates to:
-  /// **'Insights'**
-  String get navInsights;
+  /// **'Payments'**
+  String get navPayments;
 
   /// No description provided for @navClients.
   ///
@@ -311,7 +311,7 @@ abstract class AppLocalizations {
   /// No description provided for @transactionsTitle.
   ///
   /// In en, this message translates to:
-  /// **'Transactions'**
+  /// **'Payments'**
   String get transactionsTitle;
 
   /// No description provided for @transactionsPeriod.
@@ -338,16 +338,16 @@ abstract class AppLocalizations {
   /// **'{percent} vs prior period'**
   String changeFromPrevious(String percent);
 
-  /// No description provided for @recentActivity.
+  /// No description provided for @latestPayments.
   ///
   /// In en, this message translates to:
-  /// **'Recent activity'**
-  String get recentActivity;
+  /// **'Latest payments'**
+  String get latestPayments;
 
   /// No description provided for @transactionCount.
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =1{1 transaction} other{{count} transactions}}'**
+  /// **'{count, plural, =1{1 payment} other{{count} payments}}'**
   String transactionCount(int count);
 
   /// No description provided for @today.
@@ -396,6 +396,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Not part of this demo'**
   String get notInDemo;
+
+  /// No description provided for @paymentsFromClient.
+  ///
+  /// In en, this message translates to:
+  /// **'Payments from {name}'**
+  String paymentsFromClient(String name);
+
+  /// No description provided for @clientPaymentsSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} · {count, plural, =0{no payments} =1{1 payment} other{{count} payments}} in 30 days'**
+  String clientPaymentsSummary(String amount, int count);
+
+  /// No description provided for @showAllClients.
+  ///
+  /// In en, this message translates to:
+  /// **'Show all clients'**
+  String get showAllClients;
 }
 
 class _AppLocalizationsDelegate

@@ -61,10 +61,33 @@ void main() {
       final container = createContainer();
       await container.read(transactionsControllerProvider.future);
 
-      final statement = container.read(transactionStatementProvider).value;
+      final statement = container
+          .read(transactionStatementProvider(null))
+          .value;
 
       expect(statement?.recent.map((t) => t.id), [1, 2, 3]);
       expect(statement?.total, 600);
+    });
+
+    test('narrows to one client', () async {
+      stubTransactions(Ok(sampleTransactions));
+      final container = createContainer();
+      await container.read(transactionsControllerProvider.future);
+
+      final statement = container.read(transactionStatementProvider(3)).value;
+
+      expect(statement?.total, 300);
+    });
+  });
+
+  group('payerName', () {
+    test('finds the name on the client payments, or null', () async {
+      stubTransactions(Ok(sampleTransactions));
+      final container = createContainer();
+      await container.read(transactionsControllerProvider.future);
+
+      expect(container.read(payerNameProvider(4)).value, 'Client 4');
+      expect(container.read(payerNameProvider(99)).value, isNull);
     });
   });
 }

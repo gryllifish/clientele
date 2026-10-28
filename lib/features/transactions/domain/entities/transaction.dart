@@ -10,6 +10,7 @@ abstract class Transaction with _$Transaction {
     required String title,
 
     /// The client who paid.
+    required int clientId,
     required String clientName,
 
     /// In whole US dollars.

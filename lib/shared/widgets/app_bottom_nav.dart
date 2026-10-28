@@ -1,47 +1,76 @@
 import 'dart:ui';
 
 import 'package:clients_app/core/l10n/l10n.dart';
+import 'package:clients_app/core/router/app_routes.dart';
 import 'package:clients_app/core/theme/app_colors.dart';
 import 'package:clients_app/core/theme/app_spacing.dart';
 import 'package:clients_app/core/theme/app_text_styles.dart';
 import 'package:clients_app/shared/widgets/not_in_demo_notice.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-/// Frosted bottom bar.
+/// Tabs of the bottom bar that lead somewhere in this demo.
+enum AppTab {
+  home(AppRoutes.home),
+  payments(AppRoutes.payments);
+
+  const AppTab(this.path);
+
+  final String path;
+}
+
+/// Frosted bottom bar shared by the tab screens.
 ///
-/// Only Home exists in this demo; the other tabs explain that instead of
-/// navigating. Wire it to a `StatefulShellRoute` once more tabs exist.
+/// Home and Payments navigate; Clients and Settings explain that they are
+/// outside the demo. The dark style matches the Payments screen.
 class AppBottomNav extends StatelessWidget {
-  const AppBottomNav({super.key});
+  const AppBottomNav({required this.current, this.dark = false, super.key});
 
   static const height = 72.0;
+
+  final AppTab current;
+  final bool dark;
 
   static const _blurSigma = 15.0;
   static const _backgroundOpacity = 0.92;
   static const _indicatorSize = Size(28, 3);
   static const _indicatorTop = 8.0;
 
-  static const _selected = 0;
-
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final items = [
-      (icon: Icons.grid_view_outlined, label: l10n.navHome),
-      (icon: Icons.bar_chart_rounded, label: l10n.navInsights),
-      (icon: Icons.people_outline_rounded, label: l10n.navClients),
-      (icon: Icons.settings_outlined, label: l10n.navSettings),
+      (icon: Icons.grid_view_outlined, label: l10n.navHome, tab: AppTab.home),
+      (
+        icon: Icons.receipt_long_outlined,
+        label: l10n.navPayments,
+        tab: AppTab.payments,
+      ),
+      (icon: Icons.people_outline_rounded, label: l10n.navClients, tab: null),
+      (icon: Icons.settings_outlined, label: l10n.navSettings, tab: null),
     ];
+    final selectedIndex = items.indexWhere((item) => item.tab == current);
+    final (background, divider, selectedColor, idleColor) = dark
+        ? (
+            AppColors.darkSurface,
+            AppColors.darkDivider,
+            AppColors.onDark,
+            AppColors.onDarkMuted,
+          )
+        : (
+            AppColors.surface,
+            AppColors.divider,
+            AppColors.ink,
+            AppColors.inkSubtle,
+          );
 
     return ClipRect(
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: _blurSigma, sigmaY: _blurSigma),
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: AppColors.surface.withValues(alpha: _backgroundOpacity),
-            border: const Border(
-              top: BorderSide(color: AppColors.divider),
-            ),
+            color: background.withValues(alpha: _backgroundOpacity),
+            border: Border(top: BorderSide(color: divider)),
           ),
           child: SafeArea(
             top: false,
@@ -55,13 +84,13 @@ class AppBottomNav extends StatelessWidget {
                       Positioned(
                         top: _indicatorTop,
                         left:
-                            itemWidth * _selected +
+                            itemWidth * selectedIndex +
                             (itemWidth - _indicatorSize.width) / 2,
                         width: _indicatorSize.width,
                         height: _indicatorSize.height,
                         child: DecoratedBox(
                           decoration: BoxDecoration(
-                            color: AppColors.ink,
+                            color: selectedColor,
                             borderRadius: BorderRadius.circular(
                               _indicatorSize.height,
                             ),
@@ -75,10 +104,18 @@ class AppBottomNav extends StatelessWidget {
                               child: _NavButton(
                                 icon: item.icon,
                                 label: item.label,
-                                selected: index == _selected,
-                                onTap: index == _selected
-                                    ? null
-                                    : () => showNotInDemoNotice(context),
+                                selected: index == selectedIndex,
+                                color: index == selectedIndex
+                                    ? selectedColor
+                                    : idleColor,
+                                onTap: switch (item.tab) {
+                                  // Re-tapping a tab resets it, e.g. clears
+                                  // a client filter on Payments.
+                                  final AppTab tab => () => context.go(
+                                    tab.path,
+                                  ),
+                                  null => () => showNotInDemoNotice(context),
+                                },
                               ),
                             ),
                         ],
@@ -100,20 +137,20 @@ class _NavButton extends StatelessWidget {
     required this.icon,
     required this.label,
     required this.selected,
+    required this.color,
     required this.onTap,
   });
 
   final IconData icon;
   final String label;
   final bool selected;
-  final VoidCallback? onTap;
+  final Color color;
+  final VoidCallback onTap;
 
   static const _iconSize = 20.0;
 
   @override
   Widget build(BuildContext context) {
-    final color = selected ? AppColors.ink : AppColors.inkSubtle;
-
     return Semantics(
       button: true,
       selected: selected,

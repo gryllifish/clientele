@@ -10,6 +10,7 @@ _TransactionDto _$TransactionDtoFromJson(Map<String, dynamic> json) =>
     _TransactionDto(
       id: (json['id'] as num).toInt(),
       title: json['title'] as String,
+      clientId: (json['client_id'] as num).toInt(),
       clientName: json['client_name'] as String,
       amount: (json['amount'] as num).toInt(),
       occurredAt: DateTime.parse(json['occurred_at'] as String),
@@ -25,6 +26,7 @@ Map<String, dynamic> _$TransactionDtoToJson(_TransactionDto instance) =>
     <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
+      'client_id': instance.clientId,
       'client_name': instance.clientName,
       'amount': instance.amount,
       'occurred_at': instance.occurredAt.toIso8601String(),

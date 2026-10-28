@@ -7,17 +7,14 @@ import 'package:clients_app/core/utils/formatters.dart';
 import 'package:clients_app/features/clients/domain/entities/client_profile.dart';
 import 'package:flutter/material.dart';
 
-/// Lime card with the next scheduled session.
+/// Lime card with the next scheduled session. Informational only.
 class NextSessionCard extends StatelessWidget {
-  const NextSessionCard({required this.session, this.onTap, super.key});
+  const NextSessionCard({required this.session, super.key});
 
   final ClientSession session;
-  final VoidCallback? onTap;
 
   static const _padding = EdgeInsets.all(15);
   static const _iconBoxSize = 47.0;
-  static const _arrowCircleSize = 34.0;
-  static const _arrowSize = 18.0;
   static const _secondaryOpacity = 0.6;
 
   @override
@@ -26,67 +23,52 @@ class NextSessionCard extends StatelessWidget {
     final locale = l10n.localeName;
     final secondary = AppColors.ink.withValues(alpha: _secondaryOpacity);
 
-    return Material(
-      color: AppColors.accent,
-      borderRadius: BorderRadius.circular(AppRadius.lg),
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: _padding,
-          child: Row(
-            spacing: AppSpacing.md,
-            children: [
-              Container(
-                width: _iconBoxSize,
-                height: _iconBoxSize,
-                decoration: BoxDecoration(
-                  color: AppColors.ink,
-                  borderRadius: BorderRadius.circular(AppRadius.md),
-                ),
-                child: const Icon(
-                  Icons.calendar_today_outlined,
-                  color: AppColors.surface,
-                ),
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: AppColors.accent,
+        borderRadius: BorderRadius.circular(AppRadius.lg),
+      ),
+      child: Padding(
+        padding: _padding,
+        child: Row(
+          spacing: AppSpacing.md,
+          children: [
+            Container(
+              width: _iconBoxSize,
+              height: _iconBoxSize,
+              decoration: BoxDecoration(
+                color: AppColors.ink,
+                borderRadius: BorderRadius.circular(AppRadius.md),
               ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: AppSpacing.xxs,
-                  children: [
-                    Text(
-                      l10n.nextSession.toUpperCase(),
-                      style: AppTextStyles.eyebrow.copyWith(color: secondary),
-                    ),
-                    Text(
-                      Formatters.shortDate(session.startsAt, locale),
-                      style: AppTextStyles.cardTitle,
-                    ),
-                    Text(
-                      l10n.sessionTime(
-                        Formatters.time(session.startsAt, locale),
-                        session.duration.inMinutes,
-                      ),
-                      style: AppTextStyles.caption.copyWith(color: secondary),
-                    ),
-                  ],
-                ),
+              child: const Icon(
+                Icons.calendar_today_outlined,
+                color: AppColors.surface,
               ),
-              Container(
-                width: _arrowCircleSize,
-                height: _arrowCircleSize,
-                decoration: const BoxDecoration(
-                  color: AppColors.surface,
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(
-                  Icons.arrow_forward_rounded,
-                  size: _arrowSize,
-                  color: AppColors.ink,
-                ),
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: AppSpacing.xxs,
+                children: [
+                  Text(
+                    l10n.nextSession.toUpperCase(),
+                    style: AppTextStyles.eyebrow.copyWith(color: secondary),
+                  ),
+                  Text(
+                    Formatters.shortDate(session.startsAt, locale),
+                    style: AppTextStyles.cardTitle,
+                  ),
+                  Text(
+                    l10n.sessionTime(
+                      Formatters.time(session.startsAt, locale),
+                      session.duration.inMinutes,
+                    ),
+                    style: AppTextStyles.caption.copyWith(color: secondary),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

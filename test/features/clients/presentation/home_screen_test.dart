@@ -68,7 +68,7 @@ void main() {
   testWidgets('controls outside the demo explain themselves', (tester) async {
     await pumpApp(tester);
 
-    await tester.tap(find.text('Insights'));
+    await tester.tap(find.text('Clients'));
     await tester.pump();
 
     expect(find.text('Not part of this demo'), findsOneWidget);

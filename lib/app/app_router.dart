@@ -32,9 +32,16 @@ GoRouter appRouter(Ref ref) {
         ],
       ),
       GoRoute(
-        path: AppRoutes.transactions,
-        pageBuilder: (context, state) =>
-            _fadeThroughPage(context, state, const TransactionsScreen()),
+        path: AppRoutes.payments,
+        pageBuilder: (context, state) => _fadeThroughPage(
+          context,
+          state,
+          TransactionsScreen(
+            clientId: int.tryParse(
+              state.uri.queryParameters[AppRoutes.paymentsClientParam] ?? '',
+            ),
+          ),
+        ),
       ),
     ],
   );

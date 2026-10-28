@@ -9,7 +9,7 @@ modern UI**, built on a production-grade architecture.
 **[▶ Try the live demo](https://gryllifish.github.io/clientele/)** (web
 build; on a desktop it opens inside a phone frame).
 
-| Animated filters | Hero to profile | Transaction history |
+| Animated filters | Hero to profile | Payments |
 |:---:|:---:|:---:|
 | <img src="docs/gifs/filters.gif" width="240" alt="Client grid animating between filters"> | <img src="docs/gifs/hero.gif" width="240" alt="Client photo flying into the profile"> | <img src="docs/gifs/transactions.gif" width="240" alt="Transaction cards rising in on a dark screen"> |
 
@@ -21,9 +21,10 @@ build; on a desktop it opens inside a phone frame).
 - **Hero transition.** Tapping a client flies their photo into the profile
   while its corners morph from the card's radius to the portrait's arch
   ([`client_photo.dart`](lib/features/clients/presentation/widgets/client_photo.dart)).
-- **Transaction history.** A dark statement where the 30-day total counts
-  up and payment cards rise in one by one, sharing the grid's entrance
-  ([`rise_in.dart`](lib/shared/widgets/rise_in.dart)).
+- **Payments tab.** A dark statement where the 30-day total counts up and
+  payment cards rise in one by one, sharing the grid's entrance
+  ([`rise_in.dart`](lib/shared/widgets/rise_in.dart)). Each profile links
+  to the same tab narrowed to that client.
 - **Search.** The search button unfolds into a field; typing narrows the
   grid with the same animation, and filters apply on top of the matches.
 - **Polished details:** frosted bottom bar, animated chips and counters,

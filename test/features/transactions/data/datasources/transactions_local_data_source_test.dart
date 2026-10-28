@@ -6,7 +6,8 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../../../helpers/fake_asset_bundle.dart';
 
 const _validJson = '''
-[{"id": 1, "title": "Brand direction", "client_name": "Maya Chen",
+[{"id": 1, "title": "Brand direction", "client_id": 1,
+  "client_name": "Maya Chen",
   "amount": 4200, "occurred_at": "2024-05-24T09:40:00",
   "participants": [{"client_id": 1, "photo_asset": "a.jpg"}]}]
 ''';

@@ -2,11 +2,10 @@ import 'package:clients_app/core/theme/app_spacing.dart';
 import 'package:clients_app/shared/widgets/circle_icon_button.dart';
 import 'package:flutter/material.dart';
 
-/// Screen header with a leading widget, an optional centered title and an
-/// optional trailing widget.
+/// Screen header with optional leading, centered title and trailing widgets.
 class AppTopBar extends StatelessWidget {
   const AppTopBar({
-    required this.leading,
+    this.leading,
     this.title,
     this.trailing,
     super.key,
@@ -14,7 +13,7 @@ class AppTopBar extends StatelessWidget {
 
   static const _padding = EdgeInsets.fromLTRB(22, 20, 22, 10);
 
-  final Widget leading;
+  final Widget? leading;
   final Widget? title;
   final Widget? trailing;
 
@@ -25,9 +24,9 @@ class AppTopBar extends StatelessWidget {
       child: Row(
         spacing: AppSpacing.md,
         children: [
-          leading,
+          // Placeholders keep the title centered when an action is missing.
+          leading ?? const SizedBox.square(dimension: CircleIconButton.size),
           Expanded(child: Center(child: title)),
-          // Keeps the title centered when there is no trailing action.
           trailing ?? const SizedBox.square(dimension: CircleIconButton.size),
         ],
       ),
