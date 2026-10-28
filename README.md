@@ -11,7 +11,7 @@ build; on a desktop it opens inside a phone frame).
 
 | Animated filters | Hero to profile | Payments |
 |:---:|:---:|:---:|
-| <img src="docs/gifs/filters.gif" width="240" alt="Client grid animating between filters"> | <img src="docs/gifs/hero.gif" width="240" alt="Client photo flying into the profile"> | <img src="docs/gifs/transactions.gif" width="240" alt="Transaction cards rising in on a dark screen"> |
+| <img src="docs/gifs/filters.gif" width="240" alt="Client grid animating between filters"> | <img src="docs/gifs/hero.gif" width="240" alt="Client photo flying into the profile"> | <img src="docs/gifs/payments.gif" width="240" alt="Payments tab, then a profile opening its client payments"> |
 
 ## What it shows
 - **Animated grid filtering.** Switching between All / Oldest / Newest / Hot
