@@ -16,6 +16,8 @@ port=8765
 
 flutter build web --release --no-wasm-dry-run >/dev/null
 mkdir -p "$(dirname "$output")"
+# Chrome needs an absolute path.
+case "$output" in /*) output_path="$output" ;; *) output_path="$PWD/$output" ;; esac
 cat >build/web/_frame.html <<EOF
 <!doctype html>
 <style>html,body{margin:0;background:#888}iframe{border:0;display:block}</style>
@@ -31,7 +33,7 @@ window_width=$((width > 500 ? width : 500))
 "$chrome" --headless=new --hide-scrollbars --force-device-scale-factor=2 \
   --window-size="$window_width,$height" --virtual-time-budget=15000 \
   --user-data-dir="$(mktemp -d)" \
-  --screenshot="$PWD/$output" "http://localhost:$port/_frame.html" \
+  --screenshot="$output_path" "http://localhost:$port/_frame.html" \
   >/dev/null 2>&1
 
 echo "$output (${width}x${height} inside a ${window_width}px window)"
