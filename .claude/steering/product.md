@@ -19,8 +19,11 @@ is no backend or authentication.
    Hot) and a client grid that animates between filter results.
 2. **Client profile** (done): photo flies in from the card with a `Hero`
    that also morphs its corner radius; a calendar card leads to screen 3.
-3. **Transaction history** (todo): dark screen with colorful cards and
-   stacked client avatars.
+3. **Transaction history** (done): dark screen with a rolling 30-day total
+   that counts up, its change against the previous 30 days, and colorful
+   cards with stacked client avatars that rise in one by one. The design's
+   "May 2024 / from April" becomes a rolling window so the shifted mock
+   data never straddles a month boundary.
 
 ### Out of scope
 Auth, backend/API, creating or editing clients, bottom-nav destinations

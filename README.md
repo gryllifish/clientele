@@ -13,6 +13,9 @@ modern UI**, built on a production-grade architecture.
 - **Hero transition.** Tapping a client flies their photo into the profile
   while its corners morph from the card's radius to the portrait's arch
   ([`client_photo.dart`](lib/features/clients/presentation/widgets/client_photo.dart)).
+- **Transaction history.** A dark statement where the 30-day total counts
+  up and payment cards rise in one by one, sharing the grid's entrance
+  ([`rise_in.dart`](lib/shared/widgets/rise_in.dart)).
 - **Polished details:** frosted bottom bar with a sliding indicator,
   animated chips and counters, staggered entrance.
 - **Clean architecture:** feature-first layers, repository pattern, typed
