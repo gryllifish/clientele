@@ -72,3 +72,7 @@ scripts/verify.sh   # pub get, codegen, l10n, format, analyze, test
 
 ## Credits
 Client photos from [Unsplash](https://unsplash.com) (Unsplash License).
+
+## License
+Code released under the [MIT License](LICENSE). Client photos keep their
+own Unsplash License.
