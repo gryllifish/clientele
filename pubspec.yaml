@@ -23,6 +23,7 @@ dependencies:
 
 dev_dependencies:
   build_runner: ^2.15.1
+  flutter_launcher_icons: ^0.14.4
   flutter_test:
     sdk: flutter
   # Pinned below 4.x: freezed 4 stable requires Dart >=3.13.
@@ -39,3 +40,19 @@ flutter:
   assets:
     - assets/data/
     - assets/images/clients/
+    # Bundled so text never waits on (or leaks visits to) fonts.gstatic.com.
+    - assets/google_fonts/
+
+# Regenerate with `dart run flutter_launcher_icons` after editing tool/icon/.
+flutter_launcher_icons:
+  image_path: tool/icon/full.png
+  ios: true
+  remove_alpha_ios: true
+  android: true
+  adaptive_icon_background: "#171915"
+  adaptive_icon_foreground: tool/icon/fg.png
+  web:
+    generate: true
+    image_path: tool/icon/full.png
+    background_color: "#F5F4EE"
+    theme_color: "#171915"
