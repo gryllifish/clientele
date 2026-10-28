@@ -25,6 +25,12 @@ is no backend or authentication.
    "May 2024 / from April" becomes a rolling window so the shifted mock
    data never straddles a month boundary.
 
+4. **Search** (done): the top bar's search unfolds into a field that
+   narrows the grid by name or role.
+
+Controls outside this scope (add client, "more" menus, other tabs) show
+a short "Not part of this demo" notice instead of doing nothing.
+
 ### Out of scope
 Auth, backend/API, creating or editing clients, bottom-nav destinations
 other than Home, persistence.
@@ -42,6 +48,7 @@ other than Home, persistence.
 ## Success criteria
 - Animations run at 60 fps on a mid-range phone.
 - `scripts/verify.sh` passes; the README has a GIF of every screen.
+- A live web demo is deployed from `main` (GitHub Pages).
 
 ## Open questions
 - _TODO_
