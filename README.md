@@ -3,7 +3,9 @@
 A 3-screen Flutter demo focused on **smooth animations** and a **clean,
 modern UI**, built on a production-grade architecture.
 
-<!-- TODO: add a GIF of the dashboard filters and the Hero transition -->
+| Animated filters | Hero to profile | Transaction history |
+|:---:|:---:|:---:|
+| <img src="docs/gifs/filters.gif" width="240" alt="Client grid animating between filters"> | <img src="docs/gifs/hero.gif" width="240" alt="Client photo flying into the profile"> | <img src="docs/gifs/transactions.gif" width="240" alt="Transaction cards rising in on a dark screen"> |
 
 ## What it shows
 - **Animated grid filtering.** Switching between All / Oldest / Newest / Hot
