@@ -9,6 +9,10 @@ abstract final class AppColors {
   static const iconButton = Color(0xFFE8E7DF);
   static const divider = Color(0xFFEEEEEE);
 
+  /// Page behind the phone frame on wide screens (web on desktop).
+  static const backdrop = Color(0xFFD8D9D2);
+  static const frameShadow = Color(0x3D23261D);
+
   // Text
   static const ink = Color(0xFF171915);
   static const inkMuted = Color(0xFF777970);

@@ -85,7 +85,7 @@ class _AnimatedClientGridState extends State<AnimatedClientGrid> {
         }) {
           return AnimatedPositioned(
             key: key,
-            duration: AppDurations.slow,
+            duration: context.motion(AppDurations.slow),
             curve: _moveCurve,
             left: (index % columns) * (tileWidth + spacing),
             top: (index ~/ columns) * (tileHeight + spacing),
@@ -96,7 +96,7 @@ class _AnimatedClientGridState extends State<AnimatedClientGrid> {
         }
 
         return AnimatedContainer(
-          duration: AppDurations.slow,
+          duration: context.motion(AppDurations.slow),
           curve: _moveCurve,
           height: height,
           child: Stack(

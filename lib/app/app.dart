@@ -1,4 +1,5 @@
 import 'package:clients_app/app/app_router.dart';
+import 'package:clients_app/app/phone_frame.dart';
 import 'package:clients_app/core/l10n/l10n.dart';
 import 'package:clients_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class App extends ConsumerWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       routerConfig: ref.watch(appRouterProvider),
+      builder: (context, child) => PhoneFrame(child: child ?? const SizedBox()),
     );
   }
 }

@@ -16,6 +16,7 @@ import 'package:clients_app/features/clients/presentation/widgets/next_session_c
 import 'package:clients_app/shared/widgets/app_top_bar.dart';
 import 'package:clients_app/shared/widgets/circle_icon_button.dart';
 import 'package:clients_app/shared/widgets/error_view.dart';
+import 'package:clients_app/shared/widgets/not_in_demo_notice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -103,8 +104,7 @@ class _ProfileTopBar extends StatelessWidget {
       trailing: CircleIconButton(
         icon: Icons.more_horiz_rounded,
         tooltip: l10n.moreOptions,
-        // Placeholder: client actions are out of scope for this demo.
-        onPressed: () {},
+        onPressed: () => showNotInDemoNotice(context),
       ),
     );
   }

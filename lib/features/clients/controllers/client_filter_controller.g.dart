@@ -67,16 +67,77 @@ abstract class _$ClientFilterController extends $Notifier<ClientFilter> {
   }
 }
 
-/// Clients in display order for the selected filter.
+/// Text typed in the home search field.
+
+@ProviderFor(ClientSearchController)
+final clientSearchControllerProvider = ClientSearchControllerProvider._();
+
+/// Text typed in the home search field.
+final class ClientSearchControllerProvider
+    extends $NotifierProvider<ClientSearchController, String> {
+  /// Text typed in the home search field.
+  ClientSearchControllerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'clientSearchControllerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$clientSearchControllerHash();
+
+  @$internal
+  @override
+  ClientSearchController create() => ClientSearchController();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(String value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<String>(value),
+    );
+  }
+}
+
+String _$clientSearchControllerHash() =>
+    r'fcf4d786d994bbc61712948c969b1d504c48d67c';
+
+/// Text typed in the home search field.
+
+abstract class _$ClientSearchController extends $Notifier<String> {
+  String build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<String, String>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<String, String>,
+              String,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}
+
+/// Clients matching the search, in display order for the selected filter.
 ///
+/// The search narrows the list first, so "Hot" ranks only the matches.
 /// Derived synchronously (not via `.future`) so changing the filter never
 /// flashes a loading state and the grid can animate between lists.
 
 @ProviderFor(visibleClients)
 final visibleClientsProvider = VisibleClientsProvider._();
 
-/// Clients in display order for the selected filter.
+/// Clients matching the search, in display order for the selected filter.
 ///
+/// The search narrows the list first, so "Hot" ranks only the matches.
 /// Derived synchronously (not via `.future`) so changing the filter never
 /// flashes a loading state and the grid can animate between lists.
 
@@ -88,8 +149,9 @@ final class VisibleClientsProvider
           AsyncValue<List<Client>>
         >
     with $Provider<AsyncValue<List<Client>>> {
-  /// Clients in display order for the selected filter.
+  /// Clients matching the search, in display order for the selected filter.
   ///
+  /// The search narrows the list first, so "Hot" ranks only the matches.
   /// Derived synchronously (not via `.future`) so changing the filter never
   /// flashes a loading state and the grid can animate between lists.
   VisibleClientsProvider._()
@@ -126,4 +188,4 @@ final class VisibleClientsProvider
   }
 }
 
-String _$visibleClientsHash() => r'12c91c822d0656f1a68349f172024bf94540c9bc';
+String _$visibleClientsHash() => r'47f5f45d22b6fd2a44dc25640d207f1e3674291d';

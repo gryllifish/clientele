@@ -372,6 +372,30 @@ abstract class AppLocalizations {
     String client,
     String date,
   );
+
+  /// No description provided for @searchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by name or role'**
+  String get searchHint;
+
+  /// No description provided for @closeSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Close search'**
+  String get closeSearch;
+
+  /// No description provided for @noClientsMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'No clients match “{query}”.'**
+  String noClientsMatch(String query);
+
+  /// No description provided for @notInDemo.
+  ///
+  /// In en, this message translates to:
+  /// **'Not part of this demo'**
+  String get notInDemo;
 }
 
 class _AppLocalizationsDelegate

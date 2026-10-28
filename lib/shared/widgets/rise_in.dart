@@ -40,11 +40,18 @@ class _RiseInState extends State<RiseIn> with SingleTickerProviderStateMixin {
     reverseCurve: Curves.easeInCubic,
   );
   Timer? _enterTimer;
+  bool _reduceMotion = false;
+  bool _started = false;
 
   @override
-  void initState() {
-    super.initState();
-    if (widget.visible) _enter();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _reduceMotion = context.reduceMotion;
+    // Entering here, not in initState, so the motion setting is known.
+    if (!_started && widget.visible) {
+      _started = true;
+      _enter();
+    }
   }
 
   @override
@@ -55,6 +62,11 @@ class _RiseInState extends State<RiseIn> with SingleTickerProviderStateMixin {
       _enter();
     } else {
       _enterTimer?.cancel();
+      if (_reduceMotion) {
+        _controller.value = 0;
+        widget.onHidden?.call();
+        return;
+      }
       // TickerFuture only completes when the animation finishes, not when
       // it's interrupted by a re-entry.
       unawaited(
@@ -67,6 +79,10 @@ class _RiseInState extends State<RiseIn> with SingleTickerProviderStateMixin {
 
   void _enter() {
     _enterTimer?.cancel();
+    if (_reduceMotion) {
+      _controller.value = 1;
+      return;
+    }
     _enterTimer = Timer(widget.enterDelay, () {
       if (mounted && widget.visible) unawaited(_controller.forward());
     });

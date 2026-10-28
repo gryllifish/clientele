@@ -167,4 +167,18 @@ class AppLocalizationsEn extends AppLocalizations {
   ) {
     return '$title: $amount from $client, $date';
   }
+
+  @override
+  String get searchHint => 'Search by name or role';
+
+  @override
+  String get closeSearch => 'Close search';
+
+  @override
+  String noClientsMatch(String query) {
+    return 'No clients match “$query”.';
+  }
+
+  @override
+  String get notInDemo => 'Not part of this demo';
 }

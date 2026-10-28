@@ -85,6 +85,37 @@ void main() {
       expect(visible.hasValue, isTrue);
       expect(visible.requireValue.map((c) => c.id), [4, 2, 5, 1]);
     });
+
+    test('narrows by search before applying the filter', () async {
+      stubClients(Ok(sampleClients));
+      final container = createContainer()
+        ..listen(visibleClientsProvider, (_, _) {});
+      await container.read(clientsControllerProvider.future);
+
+      container.read(clientSearchControllerProvider.notifier).search('role 1');
+      container
+          .read(clientFilterControllerProvider.notifier)
+          .select(ClientFilter.hot);
+
+      expect(
+        container.read(visibleClientsProvider).requireValue.map((c) => c.id),
+        [1],
+      );
+    });
+
+    test('clearing the search restores every client', () async {
+      stubClients(Ok(sampleClients));
+      final container = createContainer()
+        ..listen(visibleClientsProvider, (_, _) {});
+      await container.read(clientsControllerProvider.future);
+      final search = container.read(clientSearchControllerProvider.notifier)
+        ..search('nobody');
+      expect(container.read(visibleClientsProvider).requireValue, isEmpty);
+
+      search.clear();
+
+      expect(container.read(visibleClientsProvider).requireValue, hasLength(5));
+    });
   });
 
   group('homeHeader', () {

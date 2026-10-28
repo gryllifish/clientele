@@ -6,6 +6,7 @@ import 'package:clients_app/core/theme/app_text_styles.dart';
 import 'package:clients_app/core/utils/formatters.dart';
 import 'package:clients_app/core/utils/part_of_day.dart';
 import 'package:clients_app/features/clients/controllers/home_header_controller.dart';
+import 'package:clients_app/shared/widgets/not_in_demo_notice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -151,8 +152,7 @@ class _AddButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       tooltip: tooltip,
-      // Placeholder: creating clients is out of scope for this demo.
-      onPressed: () {},
+      onPressed: () => showNotInDemoNotice(context),
       icon: const Icon(Icons.add_rounded, size: _iconSize),
       style: IconButton.styleFrom(
         backgroundColor: AppColors.accent,

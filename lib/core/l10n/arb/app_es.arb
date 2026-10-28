@@ -44,5 +44,9 @@
   "transactionCount": "{count, plural, =1{1 transacción} other{{count} transacciones}}",
   "today": "Hoy",
   "noTransactions": "No hubo pagos en los últimos 30 días.",
-  "transactionSemantics": "{title}: {amount} de {client}, {date}"
+  "transactionSemantics": "{title}: {amount} de {client}, {date}",
+  "searchHint": "Buscar por nombre o rol",
+  "closeSearch": "Cerrar búsqueda",
+  "noClientsMatch": "Ningún cliente coincide con “{query}”.",
+  "notInDemo": "Esto no forma parte de la demo"
 }

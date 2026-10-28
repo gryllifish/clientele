@@ -108,5 +108,16 @@
         "type": "String"
       }
     }
+  },
+  "searchHint": "Search by name or role",
+  "closeSearch": "Close search",
+  "noClientsMatch": "No clients match “{query}”.",
+  "notInDemo": "Not part of this demo",
+  "@noClientsMatch": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
   }
 }

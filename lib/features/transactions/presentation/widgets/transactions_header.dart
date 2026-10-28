@@ -97,7 +97,7 @@ class _PeriodTotal extends StatelessWidget {
                     excludeSemantics: true,
                     child: TweenAnimationBuilder<double>(
                       tween: Tween(begin: 0, end: statement.total.toDouble()),
-                      duration: AppDurations.countUp,
+                      duration: context.motion(AppDurations.countUp),
                       curve: AppCurves.emphasized,
                       builder: (context, value, _) => Text(
                         Formatters.usd(value.round(), locale),

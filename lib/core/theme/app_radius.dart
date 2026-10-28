@@ -7,6 +7,9 @@ abstract final class AppRadius {
   static const double lg = 20;
   static const double sheet = 28;
 
+  /// Corners of the phone frame shown on wide screens.
+  static const double device = 38;
+
   /// Fully rounded ends for chips and badges.
   static const double pill = 999;
 

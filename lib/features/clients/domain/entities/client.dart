@@ -23,4 +23,13 @@ abstract class Client with _$Client {
   /// Whether this client was onboarded in the same calendar month as [date].
   bool wasOnboardedInMonthOf(DateTime date) =>
       onboardedAt.year == date.year && onboardedAt.month == date.month;
+
+  /// Whether [query] appears in the name or role, ignoring case and
+  /// surrounding spaces. A blank query matches every client.
+  bool matches(String query) {
+    final needle = query.trim().toLowerCase();
+    return needle.isEmpty ||
+        name.toLowerCase().contains(needle) ||
+        role.toLowerCase().contains(needle);
+  }
 }

@@ -24,6 +24,7 @@ GoRouter appRouter(Ref ref) {
             redirect: (context, state) =>
                 _clientIdOf(state) == null ? AppRoutes.home : null,
             pageBuilder: (context, state) => _fadeThroughPage(
+              context,
               state,
               ClientProfileScreen(clientId: _clientIdOf(state) ?? 0),
             ),
@@ -33,7 +34,7 @@ GoRouter appRouter(Ref ref) {
       GoRoute(
         path: AppRoutes.transactions,
         pageBuilder: (context, state) =>
-            _fadeThroughPage(state, const TransactionsScreen()),
+            _fadeThroughPage(context, state, const TransactionsScreen()),
       ),
     ],
   );
@@ -45,13 +46,20 @@ int? _clientIdOf(GoRouterState state) =>
     int.tryParse(state.pathParameters[AppRoutes.clientIdParam] ?? '');
 
 /// Fade with a slight rise, so the Hero photo is the star of the transition.
-CustomTransitionPage<void> _fadeThroughPage(GoRouterState state, Widget child) {
+///
+/// With "Reduce motion" on, pages (and the Hero riding on them) switch
+/// instantly.
+CustomTransitionPage<void> _fadeThroughPage(
+  BuildContext context,
+  GoRouterState state,
+  Widget child,
+) {
   const riseOffset = Offset(0, 0.015);
 
   return CustomTransitionPage<void>(
     key: state.pageKey,
-    transitionDuration: AppDurations.page,
-    reverseTransitionDuration: AppDurations.medium,
+    transitionDuration: context.motion(AppDurations.page),
+    reverseTransitionDuration: context.motion(AppDurations.medium),
     child: child,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       final curved = CurvedAnimation(

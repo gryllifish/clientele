@@ -13,6 +13,7 @@ import 'package:clients_app/shared/providers/clock_provider.dart';
 import 'package:clients_app/shared/widgets/app_top_bar.dart';
 import 'package:clients_app/shared/widgets/circle_icon_button.dart';
 import 'package:clients_app/shared/widgets/error_view.dart';
+import 'package:clients_app/shared/widgets/not_in_demo_notice.dart';
 import 'package:clients_app/shared/widgets/rise_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -95,8 +96,7 @@ class _TransactionsTopBar extends StatelessWidget {
       trailing: CircleIconButton(
         icon: Icons.more_horiz_rounded,
         tooltip: l10n.moreOptions,
-        // Placeholder: statement actions are out of scope for this demo.
-        onPressed: () {},
+        onPressed: () => showNotInDemoNotice(context),
         backgroundColor: AppColors.darkIconButton,
         foregroundColor: AppColors.onDark,
       ),

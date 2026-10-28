@@ -14,6 +14,7 @@ import 'package:clients_app/features/clients/presentation/widgets/animated_clien
 import 'package:clients_app/features/clients/presentation/widgets/client_filter_chips.dart';
 import 'package:clients_app/shared/widgets/app_bottom_nav.dart';
 import 'package:clients_app/shared/widgets/error_view.dart';
+import 'package:clients_app/shared/widgets/rise_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -51,10 +52,16 @@ class ClientsSection extends ConsumerWidget {
                 horizontal: AppSpacing.sheetHorizontal,
               ),
               child: switch (clients) {
-                AsyncData(:final value) => AnimatedClientGrid(
-                  clients: value,
-                  onClientTap: (client) =>
-                      context.go(AppRoutes.clientProfilePath(client.id)),
+                AsyncData(:final value) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    AnimatedClientGrid(
+                      clients: value,
+                      onClientTap: (client) =>
+                          context.go(AppRoutes.clientProfilePath(client.id)),
+                    ),
+                    if (value.isEmpty) const _NoMatches(),
+                  ],
                 ),
                 AsyncError(:final error) => ErrorView(
                   message: _errorMessage(context, error),
@@ -76,6 +83,29 @@ class ClientsSection extends ConsumerWidget {
     final Failure failure => failure.message(context.l10n),
     _ => context.l10n.errorUnexpected,
   };
+}
+
+/// Shown when the search leaves the grid empty.
+class _NoMatches extends ConsumerWidget {
+  const _NoMatches();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final query = ref.watch(clientSearchControllerProvider).trim();
+
+    return RiseIn(
+      // Waits for the last cards to leave before rising in.
+      enterDelay: AppDurations.medium,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: AppSpacing.xxxl),
+        child: Text(
+          context.l10n.noClientsMatch(query),
+          style: AppTextStyles.body,
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
 }
 
 class _SectionTitle extends StatelessWidget {

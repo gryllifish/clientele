@@ -1,32 +1,27 @@
 import 'dart:ui';
 
-import 'package:clients_app/core/constants/app_durations.dart';
 import 'package:clients_app/core/l10n/l10n.dart';
 import 'package:clients_app/core/theme/app_colors.dart';
 import 'package:clients_app/core/theme/app_spacing.dart';
 import 'package:clients_app/core/theme/app_text_styles.dart';
+import 'package:clients_app/shared/widgets/not_in_demo_notice.dart';
 import 'package:flutter/material.dart';
 
-/// Frosted bottom bar with a sliding indicator.
+/// Frosted bottom bar.
 ///
-/// The selected tab is ephemeral UI state, so it lives in the widget. Visual
-/// only for now: wire it to a `StatefulShellRoute` once more tabs exist.
-class AppBottomNav extends StatefulWidget {
+/// Only Home exists in this demo; the other tabs explain that instead of
+/// navigating. Wire it to a `StatefulShellRoute` once more tabs exist.
+class AppBottomNav extends StatelessWidget {
   const AppBottomNav({super.key});
 
   static const height = 72.0;
 
-  @override
-  State<AppBottomNav> createState() => _AppBottomNavState();
-}
-
-class _AppBottomNavState extends State<AppBottomNav> {
   static const _blurSigma = 15.0;
   static const _backgroundOpacity = 0.92;
   static const _indicatorSize = Size(28, 3);
   static const _indicatorTop = 8.0;
 
-  int _selected = 0;
+  static const _selected = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +52,7 @@ class _AppBottomNavState extends State<AppBottomNav> {
                   final itemWidth = constraints.maxWidth / items.length;
                   return Stack(
                     children: [
-                      AnimatedPositioned(
-                        duration: AppDurations.medium,
-                        curve: Curves.easeOutBack,
+                      Positioned(
                         top: _indicatorTop,
                         left:
                             itemWidth * _selected +
@@ -83,7 +76,9 @@ class _AppBottomNavState extends State<AppBottomNav> {
                                 icon: item.icon,
                                 label: item.label,
                                 selected: index == _selected,
-                                onTap: () => setState(() => _selected = index),
+                                onTap: index == _selected
+                                    ? null
+                                    : () => showNotInDemoNotice(context),
                               ),
                             ),
                         ],
@@ -111,7 +106,7 @@ class _NavButton extends StatelessWidget {
   final IconData icon;
   final String label;
   final bool selected;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   static const _iconSize = 20.0;
 
@@ -125,17 +120,13 @@ class _NavButton extends StatelessWidget {
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: onTap,
-        child: TweenAnimationBuilder<Color?>(
-          duration: AppDurations.fast,
-          tween: ColorTween(end: color),
-          builder: (context, color, _) => Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            spacing: AppSpacing.xs,
-            children: [
-              Icon(icon, color: color, size: _iconSize),
-              Text(label, style: AppTextStyles.caption.copyWith(color: color)),
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: AppSpacing.xs,
+          children: [
+            Icon(icon, color: color, size: _iconSize),
+            Text(label, style: AppTextStyles.caption.copyWith(color: color)),
+          ],
         ),
       ),
     );
