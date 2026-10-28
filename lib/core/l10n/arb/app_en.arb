@@ -68,5 +68,45 @@
       }
     }
   },
-  "valuePlaceholder": "–"
+  "valuePlaceholder": "–",
+  "transactionsTitle": "Transactions",
+  "transactionsPeriod": "Last 30 days",
+  "transactionsHeadline": "Payments\nreceived",
+  "periodTotal": "30-day total",
+  "changeFromPrevious": "{percent} vs prior period",
+  "recentActivity": "Recent activity",
+  "transactionCount": "{count, plural, =1{1 transaction} other{{count} transactions}}",
+  "today": "Today",
+  "noTransactions": "No payments in the last 30 days.",
+  "transactionSemantics": "{title}: {amount} from {client}, {date}",
+  "@changeFromPrevious": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "@transactionCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@transactionSemantics": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      },
+      "client": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  }
 }

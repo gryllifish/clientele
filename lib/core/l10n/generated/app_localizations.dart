@@ -307,6 +307,71 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'–'**
   String get valuePlaceholder;
+
+  /// No description provided for @transactionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Transactions'**
+  String get transactionsTitle;
+
+  /// No description provided for @transactionsPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Last 30 days'**
+  String get transactionsPeriod;
+
+  /// No description provided for @transactionsHeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'Payments\nreceived'**
+  String get transactionsHeadline;
+
+  /// No description provided for @periodTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'30-day total'**
+  String get periodTotal;
+
+  /// No description provided for @changeFromPrevious.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent} vs prior period'**
+  String changeFromPrevious(String percent);
+
+  /// No description provided for @recentActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent activity'**
+  String get recentActivity;
+
+  /// No description provided for @transactionCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 transaction} other{{count} transactions}}'**
+  String transactionCount(int count);
+
+  /// No description provided for @today.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get today;
+
+  /// No description provided for @noTransactions.
+  ///
+  /// In en, this message translates to:
+  /// **'No payments in the last 30 days.'**
+  String get noTransactions;
+
+  /// No description provided for @transactionSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'{title}: {amount} from {client}, {date}'**
+  String transactionSemantics(
+    String title,
+    String amount,
+    String client,
+    String date,
+  );
 }
 
 class _AppLocalizationsDelegate

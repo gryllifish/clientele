@@ -25,6 +25,7 @@ abstract final class AppColors {
   static const darkDivider = Color(0xFF393A36);
   static const onDark = Color(0xFFF6F5EF);
   static const onDarkMuted = Color(0xFF92948C);
+  static const positive = Color(0xFFCFFF4C);
 
   static const _cardPalette = [
     Color(0xFFF7B49E), // peach
@@ -38,4 +39,15 @@ abstract final class AppColors {
   /// Each client keeps the same color no matter where it sits in the grid.
   static Color cardFor(int clientId) =>
       _cardPalette[(clientId - 1) % _cardPalette.length];
+
+  static const _transactionPalette = [
+    Color(0xFFF4866D), // coral
+    Color(0xFFD6FF4F), // acid
+    Color(0xFFC1B4F6), // lavender
+    Color(0xFF9ACBF2), // sky
+  ];
+
+  /// Transaction cards cycle through the palette by list position.
+  static Color transactionFor(int index) =>
+      _transactionPalette[index % _transactionPalette.length];
 }

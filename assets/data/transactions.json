@@ -1,0 +1,181 @@
+[
+  {
+    "id": 1,
+    "title": "Brand direction",
+    "client_name": "Maya Chen",
+    "amount": 4200,
+    "occurred_at": "2024-05-24T09:40:00",
+    "participants": [
+      {
+        "client_id": 1,
+        "photo_asset": "assets/images/clients/client_01.jpg"
+      },
+      {
+        "client_id": 2,
+        "photo_asset": "assets/images/clients/client_02.jpg"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Product sprint",
+    "client_name": "Nora Blake",
+    "amount": 2850,
+    "occurred_at": "2024-05-22T16:15:00",
+    "participants": [
+      {
+        "client_id": 2,
+        "photo_asset": "assets/images/clients/client_02.jpg"
+      },
+      {
+        "client_id": 5,
+        "photo_asset": "assets/images/clients/client_05.jpg"
+      },
+      {
+        "client_id": 3,
+        "photo_asset": "assets/images/clients/client_03.jpg"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Studio retainer",
+    "client_name": "Zoe Martin",
+    "amount": 6400,
+    "occurred_at": "2024-05-18T11:00:00",
+    "participants": [
+      {
+        "client_id": 3,
+        "photo_asset": "assets/images/clients/client_03.jpg"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Campaign assets",
+    "client_name": "Sam Rivera",
+    "amount": 1920,
+    "occurred_at": "2024-05-12T14:30:00",
+    "participants": [
+      {
+        "client_id": 4,
+        "photo_asset": "assets/images/clients/client_04.jpg"
+      },
+      {
+        "client_id": 6,
+        "photo_asset": "assets/images/clients/client_06.jpg"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Lookbook shoot",
+    "client_name": "Lina Park",
+    "amount": 3600,
+    "occurred_at": "2024-05-07T10:20:00",
+    "participants": [
+      {
+        "client_id": 5,
+        "photo_asset": "assets/images/clients/client_05.jpg"
+      },
+      {
+        "client_id": 3,
+        "photo_asset": "assets/images/clients/client_03.jpg"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Pitch deck",
+    "client_name": "Ari Ellis",
+    "amount": 2650,
+    "occurred_at": "2024-05-02T17:05:00",
+    "participants": [
+      {
+        "client_id": 6,
+        "photo_asset": "assets/images/clients/client_06.jpg"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Packaging refresh",
+    "client_name": "Maya Chen",
+    "amount": 3200,
+    "occurred_at": "2024-04-27T12:45:00",
+    "participants": [
+      {
+        "client_id": 1,
+        "photo_asset": "assets/images/clients/client_01.jpg"
+      },
+      {
+        "client_id": 4,
+        "photo_asset": "assets/images/clients/client_04.jpg"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Spring campaign",
+    "client_name": "Nora Blake",
+    "amount": 4800,
+    "occurred_at": "2024-04-20T15:10:00",
+    "participants": [
+      {
+        "client_id": 2,
+        "photo_asset": "assets/images/clients/client_02.jpg"
+      },
+      {
+        "client_id": 1,
+        "photo_asset": "assets/images/clients/client_01.jpg"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Editorial series",
+    "client_name": "Zoe Martin",
+    "amount": 7140,
+    "occurred_at": "2024-04-13T09:30:00",
+    "participants": [
+      {
+        "client_id": 3,
+        "photo_asset": "assets/images/clients/client_03.jpg"
+      },
+      {
+        "client_id": 5,
+        "photo_asset": "assets/images/clients/client_05.jpg"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "title": "Brand audit",
+    "client_name": "Sam Rivera",
+    "amount": 4300,
+    "occurred_at": "2024-04-06T13:00:00",
+    "participants": [
+      {
+        "client_id": 4,
+        "photo_asset": "assets/images/clients/client_04.jpg"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "title": "Website launch",
+    "client_name": "Ari Ellis",
+    "amount": 5800,
+    "occurred_at": "2024-03-30T18:20:00",
+    "participants": [
+      {
+        "client_id": 6,
+        "photo_asset": "assets/images/clients/client_06.jpg"
+      },
+      {
+        "client_id": 2,
+        "photo_asset": "assets/images/clients/client_02.jpg"
+      }
+    ]
+  }
+]

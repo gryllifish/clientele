@@ -7,5 +7,8 @@ abstract final class AppRoutes {
   static const clientProfile = 'clients/:$clientIdParam';
   static const clientIdParam = 'id';
 
+  /// Top-level and pushed, so back returns to wherever it was opened from.
+  static const transactions = '/transactions';
+
   static String clientProfilePath(int clientId) => '/clients/$clientId';
 }

@@ -34,5 +34,15 @@
   "sessionTime": "{time} · {minutes} min",
   "latestNote": "Última nota",
   "errorNotFound": "No encontramos ese cliente.",
-  "valuePlaceholder": "–"
+  "valuePlaceholder": "–",
+  "transactionsTitle": "Transacciones",
+  "transactionsPeriod": "Últimos 30 días",
+  "transactionsHeadline": "Pagos\nrecibidos",
+  "periodTotal": "Total en 30 días",
+  "changeFromPrevious": "{percent} vs. período previo",
+  "recentActivity": "Actividad reciente",
+  "transactionCount": "{count, plural, =1{1 transacción} other{{count} transacciones}}",
+  "today": "Hoy",
+  "noTransactions": "No hubo pagos en los últimos 30 días.",
+  "transactionSemantics": "{title}: {amount} de {client}, {date}"
 }

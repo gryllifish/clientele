@@ -120,4 +120,51 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get valuePlaceholder => '–';
+
+  @override
+  String get transactionsTitle => 'Transactions';
+
+  @override
+  String get transactionsPeriod => 'Last 30 days';
+
+  @override
+  String get transactionsHeadline => 'Payments\nreceived';
+
+  @override
+  String get periodTotal => '30-day total';
+
+  @override
+  String changeFromPrevious(String percent) {
+    return '$percent vs prior period';
+  }
+
+  @override
+  String get recentActivity => 'Recent activity';
+
+  @override
+  String transactionCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count transactions',
+      one: '1 transaction',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get today => 'Today';
+
+  @override
+  String get noTransactions => 'No payments in the last 30 days.';
+
+  @override
+  String transactionSemantics(
+    String title,
+    String amount,
+    String client,
+    String date,
+  ) {
+    return '$title: $amount from $client, $date';
+  }
 }

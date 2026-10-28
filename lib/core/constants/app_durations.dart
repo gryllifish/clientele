@@ -13,6 +13,9 @@ abstract final class AppDurations {
 
   /// Layout changes such as items moving across a grid.
   static const slow = Duration(milliseconds: 550);
+
+  /// Numbers counting up to their value.
+  static const countUp = Duration(milliseconds: 900);
 }
 
 /// Shared easing curves.

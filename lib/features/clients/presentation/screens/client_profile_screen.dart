@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:clients_app/core/error/failure.dart';
 import 'package:clients_app/core/l10n/failure_messages.dart';
 import 'package:clients_app/core/l10n/l10n.dart';
+import 'package:clients_app/core/router/app_routes.dart';
 import 'package:clients_app/core/theme/app_colors.dart';
 import 'package:clients_app/core/theme/app_radius.dart';
 import 'package:clients_app/core/theme/app_spacing.dart';
@@ -129,7 +132,11 @@ class _ProfileBody extends StatelessWidget {
           AsyncData(:final value) => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              NextSessionCard(session: value.nextSession),
+              NextSessionCard(
+                session: value.nextSession,
+                onTap: () =>
+                    unawaited(context.push<void>(AppRoutes.transactions)),
+              ),
               _LatestNote(note: value.latestNote),
             ],
           ),

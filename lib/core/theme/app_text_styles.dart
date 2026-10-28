@@ -30,6 +30,19 @@ abstract final class AppTextStyles {
     color: AppColors.ink,
   );
 
+  static TextStyle get balance => GoogleFonts.manrope(
+    fontSize: 28,
+    fontWeight: FontWeight.w700,
+    color: AppColors.ink,
+  );
+
+  static TextStyle get transactionTitle => GoogleFonts.manrope(
+    fontSize: 21,
+    fontWeight: FontWeight.w700,
+    letterSpacing: -0.84,
+    color: AppColors.ink,
+  );
+
   static TextStyle get statValue => GoogleFonts.manrope(
     fontSize: 21,
     fontWeight: FontWeight.w700,

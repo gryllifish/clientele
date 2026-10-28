@@ -2,6 +2,7 @@ import 'package:clients_app/core/constants/app_durations.dart';
 import 'package:clients_app/core/router/app_routes.dart';
 import 'package:clients_app/features/clients/presentation/screens/client_profile_screen.dart';
 import 'package:clients_app/features/clients/presentation/screens/home_screen.dart';
+import 'package:clients_app/features/transactions/presentation/screens/transactions_screen.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -28,6 +29,11 @@ GoRouter appRouter(Ref ref) {
             ),
           ),
         ],
+      ),
+      GoRoute(
+        path: AppRoutes.transactions,
+        pageBuilder: (context, state) =>
+            _fadeThroughPage(state, const TransactionsScreen()),
       ),
     ],
   );
