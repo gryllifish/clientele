@@ -10,6 +10,9 @@ modern UI**, built on a production-grade architecture.
   doesn't rebuild the grid: each card slides to its new slot, removed cards
   fade out in place and new ones fade and scale in
   ([`animated_client_grid.dart`](lib/features/clients/presentation/widgets/animated_client_grid.dart)).
+- **Hero transition.** Tapping a client flies their photo into the profile
+  while its corners morph from the card's radius to the portrait's arch
+  ([`client_photo.dart`](lib/features/clients/presentation/widgets/client_photo.dart)).
 - **Polished details:** frosted bottom bar with a sliding indicator,
   animated chips and counters, staggered entrance.
 - **Clean architecture:** feature-first layers, repository pattern, typed
@@ -63,5 +66,4 @@ scripts/verify.sh   # pub get, codegen, l10n, format, analyze, test
 ```
 
 ## Credits
-Client photos come from [pravatar.cc](https://pravatar.cc) and are used as
-demo placeholders.
+Client photos from [Unsplash](https://unsplash.com) (Unsplash License).

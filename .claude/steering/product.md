@@ -17,8 +17,8 @@ is no backend or authentication.
 ### In scope
 1. **Dashboard** (done): greeting, stats, filters (All / Oldest / Newest /
    Hot) and a client grid that animates between filter results.
-2. **Client detail** (todo): photo flies in from the card with a `Hero`; a
-   calendar card leads to screen 3.
+2. **Client profile** (done): photo flies in from the card with a `Hero`
+   that also morphs its corner radius; a calendar card leads to screen 3.
 3. **Transaction history** (todo): dark screen with colorful cards and
    stacked client avatars.
 
@@ -27,12 +27,14 @@ Auth, backend/API, creating or editing clients, bottom-nav destinations
 other than Home, persistence.
 
 ## Design
-- Figma (all screens): https://www.figma.com/design/nuaSmkMecIrbciL60Bxyv3/Untitled?node-id=103-3
-- Per-screen frame links: _TODO (right click a frame → Copy link to
-  selection)._ Read one frame at a time through the Figma MCP server; never
-  load the whole file.
-- Figma is the source of truth for visuals; tokens are mirrored in
-  `lib/core/theme/`.
+- Figma: https://www.figma.com/design/nuaSmkMecIrbciL60Bxyv3/Untitled?node-id=103-3
+- Node `103:3` is a **React code layer** (not vector frames) holding all
+  three screens. Read it through the Figma MCP: `get_design_context` returns
+  links to `src/App.tsx` (structure, copy, data) and `src/index.css`
+  (colors, type, spacing); read only the file you need. `get_screenshot`
+  fails on code layers.
+- Tokens are mirrored in `lib/core/theme/`. Labels the design sets at
+  9–10px are raised to 11px for legibility.
 
 ## Success criteria
 - Animations run at 60 fps on a mid-range phone.
