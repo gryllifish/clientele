@@ -36,17 +36,28 @@ class HomeHeader extends ConsumerWidget {
           ),
           const SizedBox(height: AppSpacing.xxl),
           Row(
-            spacing: AppSpacing.xxxl,
+            spacing: AppSpacing.lg,
             children: [
-              _Stat(
-                value: Formatters.twoDigits(header.totalClients),
-                label: l10n.totalClients,
+              // Stats shrink (and ellipsize) before pushing the button out.
+              Expanded(
+                child: Row(
+                  spacing: AppSpacing.xl,
+                  children: [
+                    Flexible(
+                      child: _Stat(
+                        value: Formatters.twoDigits(header.totalClients),
+                        label: l10n.totalClients,
+                      ),
+                    ),
+                    Flexible(
+                      child: _Stat(
+                        value: Formatters.twoDigits(header.clientsThisMonth),
+                        label: l10n.clientsThisMonth,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              _Stat(
-                value: Formatters.twoDigits(header.clientsThisMonth),
-                label: l10n.clientsThisMonth,
-              ),
-              const Spacer(),
               _AddButton(semanticLabel: l10n.addClient),
             ],
           ),
@@ -110,7 +121,12 @@ class _Stat extends StatelessWidget {
       spacing: AppSpacing.xs,
       children: [
         Text(value, style: AppTextStyles.statValue),
-        Text(label, style: AppTextStyles.body),
+        Text(
+          label,
+          style: AppTextStyles.body,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
       ],
     );
   }
