@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:clients_app/core/config/env.dart';
+import 'package:clients_app/core/error/retry_policy.dart';
 import 'package:clients_app/core/utils/app_logger.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,5 +19,5 @@ void bootstrap(Widget Function() builder) {
   };
 
   AppLogger.info('Starting app (${Env.environment.name})');
-  runApp(ProviderScope(child: builder()));
+  runApp(ProviderScope(retry: retryPolicy, child: builder()));
 }
