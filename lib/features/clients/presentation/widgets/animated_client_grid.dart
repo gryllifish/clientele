@@ -1,10 +1,10 @@
-import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:clients_app/core/constants/app_durations.dart';
 import 'package:clients_app/core/theme/app_spacing.dart';
 import 'package:clients_app/features/clients/domain/entities/client.dart';
 import 'package:clients_app/features/clients/presentation/widgets/client_card.dart';
+import 'package:clients_app/shared/widgets/rise_in.dart';
 import 'package:flutter/material.dart';
 
 const _staggerStep = Duration(milliseconds: 40);
@@ -107,7 +107,7 @@ class _AnimatedClientGridState extends State<AnimatedClientGrid> {
                 positioned(
                   leaving.index,
                   key: ValueKey(id),
-                  child: _GridTile(
+                  child: RiseIn(
                     visible: false,
                     onHidden: () => _onExitComplete(id),
                     child: ClientCard(client: leaving.client),
@@ -117,8 +117,7 @@ class _AnimatedClientGridState extends State<AnimatedClientGrid> {
                 positioned(
                   index,
                   key: ValueKey(client.id),
-                  child: _GridTile(
-                    visible: true,
+                  child: RiseIn(
                     enterDelay: _isFirstBuild
                         ? _staggerStep * index
                         : _reflowEnterDelay,
@@ -135,106 +134,6 @@ class _AnimatedClientGridState extends State<AnimatedClientGrid> {
           ),
         );
       },
-    );
-  }
-}
-
-/// Rises and fades its child in, or fades it out, depending on [visible].
-class _GridTile extends StatefulWidget {
-  const _GridTile({
-    required this.visible,
-    required this.child,
-    this.enterDelay = Duration.zero,
-    this.onHidden,
-  });
-
-  final bool visible;
-  final Duration enterDelay;
-  final VoidCallback? onHidden;
-  final Widget child;
-
-  @override
-  State<_GridTile> createState() => _GridTileState();
-}
-
-class _GridTileState extends State<_GridTile>
-    with SingleTickerProviderStateMixin {
-  /// Entrance from the design: 18px lower and 97% scale.
-  static const _enterOffset = Offset(0, 18);
-  static const _enterScale = 0.97;
-
-  late final _controller = AnimationController(
-    vsync: this,
-    duration: AppDurations.page,
-    reverseDuration: AppDurations.medium,
-  );
-  late final CurvedAnimation _curve = CurvedAnimation(
-    parent: _controller,
-    curve: AppCurves.emphasized,
-    reverseCurve: Curves.easeInCubic,
-  );
-  Timer? _enterTimer;
-
-  @override
-  void initState() {
-    super.initState();
-    if (widget.visible) _enter();
-  }
-
-  @override
-  void didUpdateWidget(_GridTile oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.visible == oldWidget.visible) return;
-    if (widget.visible) {
-      _enter();
-    } else {
-      _enterTimer?.cancel();
-      // TickerFuture only completes when the animation finishes, not when
-      // it's interrupted by a re-entry.
-      unawaited(
-        _controller.reverse().then((_) {
-          if (!widget.visible) widget.onHidden?.call();
-        }),
-      );
-    }
-  }
-
-  void _enter() {
-    _enterTimer?.cancel();
-    _enterTimer = Timer(widget.enterDelay, () {
-      if (mounted && widget.visible) unawaited(_controller.forward());
-    });
-  }
-
-  @override
-  void dispose() {
-    _enterTimer?.cancel();
-    _curve.dispose();
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return IgnorePointer(
-      ignoring: !widget.visible,
-      child: AnimatedBuilder(
-        animation: _curve,
-        builder: (context, child) {
-          final hidden = 1 - _curve.value;
-          return Opacity(
-            opacity: _curve.value.clamp(0, 1),
-            child: Transform.translate(
-              offset: _enterOffset * hidden,
-              child: Transform.scale(
-                scale: 1 - (1 - _enterScale) * hidden,
-                child: child,
-              ),
-            ),
-          );
-        },
-        child: widget.child,
-      ),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:clients_app/core/utils/demo_dates.dart';
 import 'package:clients_app/features/clients/data/datasources/clients_local_data_source.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -8,7 +9,7 @@ void main() {
 
   final dataSource = ClientsLocalDataSource(
     bundle: rootBundle,
-    now: ClientsLocalDataSource.authoredAt,
+    now: DemoDates.authoredAt,
   );
 
   test('every bundled client parses', () async {

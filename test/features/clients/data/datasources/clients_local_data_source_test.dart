@@ -1,22 +1,9 @@
-import 'dart:convert';
-
 import 'package:clients_app/core/error/app_exception.dart';
+import 'package:clients_app/core/utils/demo_dates.dart';
 import 'package:clients_app/features/clients/data/datasources/clients_local_data_source.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-class _FakeAssetBundle extends CachingAssetBundle {
-  _FakeAssetBundle(this._content);
-
-  /// Null simulates a missing asset.
-  final String? _content;
-
-  @override
-  Future<ByteData> load(String key) async => switch (_content) {
-    final String content => ByteData.sublistView(utf8.encode(content)),
-    null => throw Exception('Asset not found: $key'),
-  };
-}
+import '../../../../helpers/fake_asset_bundle.dart';
 
 const _validJson = '''
 [{"id": 1, "name": "Maya", "role": "Designer", "photo_asset": "a.jpg",
@@ -28,11 +15,11 @@ const _validJson = '''
 ''';
 
 void main() {
-  final authoredAt = ClientsLocalDataSource.authoredAt;
+  final authoredAt = DemoDates.authoredAt;
 
   ClientsLocalDataSource buildDataSource(String? content, {DateTime? now}) =>
       ClientsLocalDataSource(
-        bundle: _FakeAssetBundle(content),
+        bundle: FakeAssetBundle(content),
         now: now ?? authoredAt,
       );
 

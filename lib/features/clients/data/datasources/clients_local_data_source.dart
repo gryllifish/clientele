@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:clients_app/core/error/app_exception.dart';
+import 'package:clients_app/core/utils/demo_dates.dart';
 import 'package:clients_app/features/clients/data/models/client_dto.dart';
 import 'package:clients_app/features/clients/data/models/client_profile_dto.dart';
 import 'package:clients_app/shared/providers/clock_provider.dart';
@@ -18,17 +19,11 @@ class ClientsLocalDataSource {
 
   static const assetPath = 'assets/data/clients.json';
 
-  /// Date the mock JSON was written against (the date in the design).
-  ///
-  /// Demo-only: every date is shifted by the whole days elapsed since then,
-  /// so relative data ("This month", next session) always looks current
-  /// while times of day stay as authored.
-  static final authoredAt = DateTime(2024, 5, 24);
-
   final AssetBundle _bundle;
   final DateTime _now;
 
-  Duration get _offset => Duration(days: _now.difference(authoredAt).inDays);
+  /// See [DemoDates].
+  Duration get _offset => DemoDates.offsetFor(_now);
 
   /// Throws [StorageException] or [ParsingException].
   Future<List<ClientDto>> fetchClients() async {
