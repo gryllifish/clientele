@@ -9,6 +9,12 @@ abstract final class AppSpacing {
   static const double xxl = 32;
   static const double xxxl = 40;
 
-  /// Horizontal padding of every screen.
+  /// Horizontal padding of screen headers.
   static const double screenHorizontal = xl;
+
+  /// Horizontal padding inside white sheets.
+  static const double sheetHorizontal = 18;
+
+  /// Gap between grid cells.
+  static const double gridGap = 11;
 }

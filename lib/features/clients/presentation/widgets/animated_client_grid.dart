@@ -7,7 +7,7 @@ import 'package:clients_app/features/clients/domain/entities/client.dart';
 import 'package:clients_app/features/clients/presentation/widgets/client_card.dart';
 import 'package:flutter/material.dart';
 
-const _staggerStep = Duration(milliseconds: 80);
+const _staggerStep = Duration(milliseconds: 40);
 const _reflowEnterDelay = Duration(milliseconds: 180);
 const Curve _moveCurve = Curves.easeInOutCubicEmphasized;
 
@@ -15,14 +15,14 @@ const Curve _moveCurve = Curves.easeInOutCubicEmphasized;
 ///
 /// Cards are keyed by client id and absolutely positioned, so when the list
 /// changes each card slides to its new slot, removed cards fade out in place
-/// and new cards fade + scale in once the others have started moving.
+/// and new cards rise in once the others have started moving.
 class AnimatedClientGrid extends StatefulWidget {
   const AnimatedClientGrid({
     required this.clients,
     this.onClientTap,
     this.crossAxisCount = 2,
-    this.spacing = AppSpacing.md,
-    this.childAspectRatio = 0.84,
+    this.spacing = AppSpacing.gridGap,
+    this.tileHeight = ClientCard.height,
     super.key,
   });
 
@@ -30,7 +30,7 @@ class AnimatedClientGrid extends StatefulWidget {
   final ValueChanged<Client>? onClientTap;
   final int crossAxisCount;
   final double spacing;
-  final double childAspectRatio;
+  final double tileHeight;
 
   @override
   State<AnimatedClientGrid> createState() => _AnimatedClientGridState();
@@ -74,7 +74,7 @@ class _AnimatedClientGridState extends State<AnimatedClientGrid> {
         final spacing = widget.spacing;
         final tileWidth =
             (constraints.maxWidth - spacing * (columns - 1)) / columns;
-        final tileHeight = tileWidth / widget.childAspectRatio;
+        final tileHeight = widget.tileHeight;
         final rows = (widget.clients.length / columns).ceil();
         final height = rows * tileHeight + math.max(0, rows - 1) * spacing;
 
@@ -124,9 +124,10 @@ class _AnimatedClientGridState extends State<AnimatedClientGrid> {
                         : _reflowEnterDelay,
                     child: ClientCard(
                       client: client,
-                      onTap: widget.onClientTap == null
-                          ? null
-                          : () => widget.onClientTap!(client),
+                      onTap: switch (widget.onClientTap) {
+                        final ValueChanged<Client> onTap => () => onTap(client),
+                        null => null,
+                      },
                     ),
                   ),
                 ),
@@ -138,7 +139,7 @@ class _AnimatedClientGridState extends State<AnimatedClientGrid> {
   }
 }
 
-/// Fades and scales its child in or out depending on [visible].
+/// Rises and fades its child in, or fades it out, depending on [visible].
 class _GridTile extends StatefulWidget {
   const _GridTile({
     required this.visible,
@@ -158,19 +159,20 @@ class _GridTile extends StatefulWidget {
 
 class _GridTileState extends State<_GridTile>
     with SingleTickerProviderStateMixin {
+  /// Entrance from the design: 18px lower and 97% scale.
+  static const _enterOffset = Offset(0, 18);
+  static const _enterScale = 0.97;
+
   late final _controller = AnimationController(
     vsync: this,
-    duration: AppDurations.medium,
+    duration: AppDurations.page,
+    reverseDuration: AppDurations.medium,
   );
   late final CurvedAnimation _curve = CurvedAnimation(
     parent: _controller,
-    curve: Curves.easeOutCubic,
+    curve: AppCurves.emphasized,
     reverseCurve: Curves.easeInCubic,
   );
-  late final Animation<double> _scale = Tween<double>(
-    begin: 0.9,
-    end: 1,
-  ).animate(_curve);
   Timer? _enterTimer;
 
   @override
@@ -216,9 +218,22 @@ class _GridTileState extends State<_GridTile>
   Widget build(BuildContext context) {
     return IgnorePointer(
       ignoring: !widget.visible,
-      child: FadeTransition(
-        opacity: _curve,
-        child: ScaleTransition(scale: _scale, child: widget.child),
+      child: AnimatedBuilder(
+        animation: _curve,
+        builder: (context, child) {
+          final hidden = 1 - _curve.value;
+          return Opacity(
+            opacity: _curve.value.clamp(0, 1),
+            child: Transform.translate(
+              offset: _enterOffset * hidden,
+              child: Transform.scale(
+                scale: 1 - (1 - _enterScale) * hidden,
+                child: child,
+              ),
+            ),
+          );
+        },
+        child: widget.child,
       ),
     );
   }

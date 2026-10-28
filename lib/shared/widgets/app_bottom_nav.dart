@@ -14,17 +14,17 @@ import 'package:flutter/material.dart';
 class AppBottomNav extends StatefulWidget {
   const AppBottomNav({super.key});
 
-  static const height = 76.0;
+  static const height = 72.0;
 
   @override
   State<AppBottomNav> createState() => _AppBottomNavState();
 }
 
 class _AppBottomNavState extends State<AppBottomNav> {
-  static const _blurSigma = 20.0;
-  static const _backgroundOpacity = 0.82;
-  static const _borderOpacity = 0.06;
-  static const _indicatorSize = Size(40, 3);
+  static const _blurSigma = 15.0;
+  static const _backgroundOpacity = 0.92;
+  static const _indicatorSize = Size(28, 3);
+  static const _indicatorTop = 8.0;
 
   int _selected = 0;
 
@@ -44,10 +44,8 @@ class _AppBottomNavState extends State<AppBottomNav> {
         child: DecoratedBox(
           decoration: BoxDecoration(
             color: AppColors.surface.withValues(alpha: _backgroundOpacity),
-            border: Border(
-              top: BorderSide(
-                color: AppColors.ink.withValues(alpha: _borderOpacity),
-              ),
+            border: const Border(
+              top: BorderSide(color: AppColors.divider),
             ),
           ),
           child: SafeArea(
@@ -62,7 +60,7 @@ class _AppBottomNavState extends State<AppBottomNav> {
                       AnimatedPositioned(
                         duration: AppDurations.medium,
                         curve: Curves.easeOutBack,
-                        top: 0,
+                        top: _indicatorTop,
                         left:
                             itemWidth * _selected +
                             (itemWidth - _indicatorSize.width) / 2,
@@ -71,8 +69,8 @@ class _AppBottomNavState extends State<AppBottomNav> {
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                             color: AppColors.ink,
-                            borderRadius: BorderRadius.vertical(
-                              bottom: Radius.circular(_indicatorSize.height),
+                            borderRadius: BorderRadius.circular(
+                              _indicatorSize.height,
                             ),
                           ),
                         ),
@@ -115,14 +113,11 @@ class _NavButton extends StatelessWidget {
   final bool selected;
   final VoidCallback onTap;
 
-  static const _iconSize = 26.0;
-  static const _unselectedOpacity = 0.7;
+  static const _iconSize = 20.0;
 
   @override
   Widget build(BuildContext context) {
-    final color = selected
-        ? AppColors.ink
-        : AppColors.inkMuted.withValues(alpha: _unselectedOpacity);
+    final color = selected ? AppColors.ink : AppColors.inkSubtle;
 
     return Semantics(
       button: true,

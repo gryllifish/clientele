@@ -18,5 +18,55 @@
   "navSettings": "Settings",
   "errorLoadData": "We couldn't load your data.",
   "errorUnexpected": "Something went wrong.",
-  "retry": "Retry"
+  "retry": "Retry",
+  "brandMark": "fl.",
+  "search": "Search",
+  "back": "Back",
+  "moreOptions": "More options",
+  "openClientProfile": "Open {name}'s profile",
+  "clientProfileTitle": "Client profile",
+  "workingTogetherSince": "Working together since {year}",
+  "roleAtLocation": "{role} · {location}",
+  "totalValue": "Total value",
+  "projects": "Projects",
+  "rating": "Rating",
+  "nextSession": "Next session",
+  "sessionTime": "{time} · {minutes} min",
+  "latestNote": "Latest note",
+  "errorNotFound": "We couldn't find that client.",
+  "@openClientProfile": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@workingTogetherSince": {
+    "placeholders": {
+      "year": {
+        "type": "String"
+      }
+    }
+  },
+  "@roleAtLocation": {
+    "placeholders": {
+      "role": {
+        "type": "String"
+      },
+      "location": {
+        "type": "String"
+      }
+    }
+  },
+  "@sessionTime": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "valuePlaceholder": "–"
 }

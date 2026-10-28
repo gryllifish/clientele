@@ -9,19 +9,20 @@ void main() {
 
   group('ClientFilter.apply', () {
     test('all keeps the original order', () {
-      expect(idsAfter(ClientFilter.all), [1, 2, 3, 4]);
+      expect(idsAfter(ClientFilter.all), [1, 2, 3, 4, 5]);
     });
 
     test('oldest sorts by onboarding date ascending', () {
-      expect(idsAfter(ClientFilter.oldest), [3, 1, 4, 2]);
+      expect(idsAfter(ClientFilter.oldest), [3, 1, 5, 4, 2]);
     });
 
     test('newest sorts by onboarding date descending', () {
-      expect(idsAfter(ClientFilter.newest), [2, 4, 1, 3]);
+      expect(idsAfter(ClientFilter.newest), [2, 4, 5, 1, 3]);
     });
 
-    test('hot keeps only highlighted clients', () {
-      expect(idsAfter(ClientFilter.hot), [1, 3]);
+    test('hot keeps the hottest clients, hottest first', () {
+      expect(ClientFilter.hotLimit, 4);
+      expect(idsAfter(ClientFilter.hot), [4, 2, 5, 1]);
     });
 
     test('never mutates the input', () {

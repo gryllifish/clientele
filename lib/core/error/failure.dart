@@ -20,6 +20,11 @@ final class ParsingFailure extends Failure {
   const ParsingFailure({super.cause});
 }
 
+/// The requested item does not exist.
+final class NotFoundFailure extends Failure {
+  const NotFoundFailure({super.cause});
+}
+
 /// Anything the data layer did not anticipate.
 final class UnexpectedFailure extends Failure {
   const UnexpectedFailure({super.cause});

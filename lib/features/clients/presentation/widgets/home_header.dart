@@ -12,36 +12,43 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class HomeHeader extends ConsumerWidget {
   const HomeHeader({super.key});
 
+  static const _padding = EdgeInsets.fromLTRB(
+    AppSpacing.screenHorizontal,
+    26,
+    AppSpacing.screenHorizontal,
+    30,
+  );
+  static const _greetingBottomGap = 30.0;
+  static const _statsGap = 28.0;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final header = ref.watch(homeHeaderProvider);
     final l10n = context.l10n;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.screenHorizontal,
-        vertical: AppSpacing.xxxl,
-      ),
+      padding: _padding,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             Formatters.longDate(header.today, l10n.localeName).toUpperCase(),
-            style: AppTextStyles.overline,
+            style: AppTextStyles.eyebrow,
           ),
-          const SizedBox(height: AppSpacing.lg),
+          const SizedBox(height: AppSpacing.sm),
           _Greeting(
             greeting: _greetingFor(header.partOfDay, l10n),
             userName: header.userName,
           ),
-          const SizedBox(height: AppSpacing.xxl),
+          const SizedBox(height: _greetingBottomGap),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
             spacing: AppSpacing.lg,
             children: [
               // Stats shrink (and ellipsize) before pushing the button out.
               Expanded(
                 child: Row(
-                  spacing: AppSpacing.xl,
+                  spacing: _statsGap,
                   children: [
                     Flexible(
                       child: _Stat(
@@ -58,7 +65,7 @@ class HomeHeader extends ConsumerWidget {
                   ],
                 ),
               ),
-              _AddButton(semanticLabel: l10n.addClient),
+              _AddButton(tooltip: l10n.addClient),
             ],
           ),
         ],
@@ -89,7 +96,7 @@ class _Greeting extends StatelessWidget {
         FittedBox(
           fit: BoxFit.scaleDown,
           alignment: Alignment.centerLeft,
-          child: Text(greeting, style: AppTextStyles.greeting),
+          child: Text(greeting, style: AppTextStyles.display),
         ),
         Text.rich(
           TextSpan(
@@ -101,7 +108,7 @@ class _Greeting extends StatelessWidget {
               ),
             ],
           ),
-          style: AppTextStyles.greeting,
+          style: AppTextStyles.display,
         ),
       ],
     );
@@ -118,12 +125,12 @@ class _Stat extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: AppSpacing.xs,
+      spacing: AppSpacing.xxs,
       children: [
         Text(value, style: AppTextStyles.statValue),
         Text(
           label,
-          style: AppTextStyles.body,
+          style: AppTextStyles.caption,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
@@ -133,33 +140,26 @@ class _Stat extends StatelessWidget {
 }
 
 class _AddButton extends StatelessWidget {
-  const _AddButton({required this.semanticLabel});
+  const _AddButton({required this.tooltip});
 
-  final String semanticLabel;
+  final String tooltip;
 
-  static const _size = Size(84, 76);
-  static const _iconSize = 32.0;
+  static const _size = 48.0;
+  static const _iconSize = 22.0;
 
   @override
   Widget build(BuildContext context) {
-    return Semantics(
-      button: true,
-      label: semanticLabel,
-      child: Material(
-        color: AppColors.accent,
-        borderRadius: BorderRadius.circular(AppRadius.lg),
-        clipBehavior: Clip.antiAlias,
-        child: InkWell(
-          // Placeholder: creating clients is out of scope for this demo.
-          onTap: () {},
-          child: SizedBox.fromSize(
-            size: _size,
-            child: const Icon(
-              Icons.add,
-              size: _iconSize,
-              color: AppColors.ink,
-            ),
-          ),
+    return IconButton(
+      tooltip: tooltip,
+      // Placeholder: creating clients is out of scope for this demo.
+      onPressed: () {},
+      icon: const Icon(Icons.add_rounded, size: _iconSize),
+      style: IconButton.styleFrom(
+        backgroundColor: AppColors.accent,
+        foregroundColor: AppColors.ink,
+        fixedSize: const Size.square(_size),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppRadius.md),
         ),
       ),
     );

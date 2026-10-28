@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ClientDto {
 
- int get id; String get name; String get role; String get photoAsset; DateTime get onboardedAt; bool get isHot;
+ int get id; String get name; String get role; String get photoAsset; DateTime get onboardedAt; int get hotScore;
 /// Create a copy of ClientDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $ClientDtoCopyWith<ClientDto> get copyWith => _$ClientDtoCopyWithImpl<ClientDto>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ClientDto&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.role, role) || other.role == role)&&(identical(other.photoAsset, photoAsset) || other.photoAsset == photoAsset)&&(identical(other.onboardedAt, onboardedAt) || other.onboardedAt == onboardedAt)&&(identical(other.isHot, isHot) || other.isHot == isHot));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ClientDto&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.role, role) || other.role == role)&&(identical(other.photoAsset, photoAsset) || other.photoAsset == photoAsset)&&(identical(other.onboardedAt, onboardedAt) || other.onboardedAt == onboardedAt)&&(identical(other.hotScore, hotScore) || other.hotScore == hotScore));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,role,photoAsset,onboardedAt,isHot);
+int get hashCode => Object.hash(runtimeType,id,name,role,photoAsset,onboardedAt,hotScore);
 
 @override
 String toString() {
-  return 'ClientDto(id: $id, name: $name, role: $role, photoAsset: $photoAsset, onboardedAt: $onboardedAt, isHot: $isHot)';
+  return 'ClientDto(id: $id, name: $name, role: $role, photoAsset: $photoAsset, onboardedAt: $onboardedAt, hotScore: $hotScore)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $ClientDtoCopyWith<$Res>  {
   factory $ClientDtoCopyWith(ClientDto value, $Res Function(ClientDto) _then) = _$ClientDtoCopyWithImpl;
 @useResult
 $Res call({
- int id, String name, String role, String photoAsset, DateTime onboardedAt, bool isHot
+ int id, String name, String role, String photoAsset, DateTime onboardedAt, int hotScore
 });
 
 
@@ -65,15 +65,15 @@ class _$ClientDtoCopyWithImpl<$Res>
 
 /// Create a copy of ClientDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? role = null,Object? photoAsset = null,Object? onboardedAt = null,Object? isHot = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? role = null,Object? photoAsset = null,Object? onboardedAt = null,Object? hotScore = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
 as String,photoAsset: null == photoAsset ? _self.photoAsset : photoAsset // ignore: cast_nullable_to_non_nullable
 as String,onboardedAt: null == onboardedAt ? _self.onboardedAt : onboardedAt // ignore: cast_nullable_to_non_nullable
-as DateTime,isHot: null == isHot ? _self.isHot : isHot // ignore: cast_nullable_to_non_nullable
-as bool,
+as DateTime,hotScore: null == hotScore ? _self.hotScore : hotScore // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 
@@ -158,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String role,  String photoAsset,  DateTime onboardedAt,  bool isHot)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String role,  String photoAsset,  DateTime onboardedAt,  int hotScore)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ClientDto() when $default != null:
-return $default(_that.id,_that.name,_that.role,_that.photoAsset,_that.onboardedAt,_that.isHot);case _:
+return $default(_that.id,_that.name,_that.role,_that.photoAsset,_that.onboardedAt,_that.hotScore);case _:
   return orElse();
 
 }
@@ -179,10 +179,10 @@ return $default(_that.id,_that.name,_that.role,_that.photoAsset,_that.onboardedA
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String role,  String photoAsset,  DateTime onboardedAt,  bool isHot)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String role,  String photoAsset,  DateTime onboardedAt,  int hotScore)  $default,) {final _that = this;
 switch (_that) {
 case _ClientDto():
-return $default(_that.id,_that.name,_that.role,_that.photoAsset,_that.onboardedAt,_that.isHot);case _:
+return $default(_that.id,_that.name,_that.role,_that.photoAsset,_that.onboardedAt,_that.hotScore);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -199,10 +199,10 @@ return $default(_that.id,_that.name,_that.role,_that.photoAsset,_that.onboardedA
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String role,  String photoAsset,  DateTime onboardedAt,  bool isHot)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String role,  String photoAsset,  DateTime onboardedAt,  int hotScore)?  $default,) {final _that = this;
 switch (_that) {
 case _ClientDto() when $default != null:
-return $default(_that.id,_that.name,_that.role,_that.photoAsset,_that.onboardedAt,_that.isHot);case _:
+return $default(_that.id,_that.name,_that.role,_that.photoAsset,_that.onboardedAt,_that.hotScore);case _:
   return null;
 
 }
@@ -214,7 +214,7 @@ return $default(_that.id,_that.name,_that.role,_that.photoAsset,_that.onboardedA
 @JsonSerializable()
 
 class _ClientDto implements ClientDto {
-  const _ClientDto({required this.id, required this.name, required this.role, required this.photoAsset, required this.onboardedAt, this.isHot = false});
+  const _ClientDto({required this.id, required this.name, required this.role, required this.photoAsset, required this.onboardedAt, required this.hotScore});
   factory _ClientDto.fromJson(Map<String, dynamic> json) => _$ClientDtoFromJson(json);
 
 @override final  int id;
@@ -222,7 +222,7 @@ class _ClientDto implements ClientDto {
 @override final  String role;
 @override final  String photoAsset;
 @override final  DateTime onboardedAt;
-@override@JsonKey() final  bool isHot;
+@override final  int hotScore;
 
 /// Create a copy of ClientDto
 /// with the given fields replaced by the non-null parameter values.
@@ -237,16 +237,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ClientDto&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.role, role) || other.role == role)&&(identical(other.photoAsset, photoAsset) || other.photoAsset == photoAsset)&&(identical(other.onboardedAt, onboardedAt) || other.onboardedAt == onboardedAt)&&(identical(other.isHot, isHot) || other.isHot == isHot));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ClientDto&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.role, role) || other.role == role)&&(identical(other.photoAsset, photoAsset) || other.photoAsset == photoAsset)&&(identical(other.onboardedAt, onboardedAt) || other.onboardedAt == onboardedAt)&&(identical(other.hotScore, hotScore) || other.hotScore == hotScore));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,role,photoAsset,onboardedAt,isHot);
+int get hashCode => Object.hash(runtimeType,id,name,role,photoAsset,onboardedAt,hotScore);
 
 @override
 String toString() {
-  return 'ClientDto(id: $id, name: $name, role: $role, photoAsset: $photoAsset, onboardedAt: $onboardedAt, isHot: $isHot)';
+  return 'ClientDto(id: $id, name: $name, role: $role, photoAsset: $photoAsset, onboardedAt: $onboardedAt, hotScore: $hotScore)';
 }
 
 
@@ -257,7 +257,7 @@ abstract mixin class _$ClientDtoCopyWith<$Res> implements $ClientDtoCopyWith<$Re
   factory _$ClientDtoCopyWith(_ClientDto value, $Res Function(_ClientDto) _then) = __$ClientDtoCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name, String role, String photoAsset, DateTime onboardedAt, bool isHot
+ int id, String name, String role, String photoAsset, DateTime onboardedAt, int hotScore
 });
 
 
@@ -274,15 +274,15 @@ class __$ClientDtoCopyWithImpl<$Res>
 
 /// Create a copy of ClientDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? role = null,Object? photoAsset = null,Object? onboardedAt = null,Object? isHot = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? role = null,Object? photoAsset = null,Object? onboardedAt = null,Object? hotScore = null,}) {
   return _then(_ClientDto(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
 as String,photoAsset: null == photoAsset ? _self.photoAsset : photoAsset // ignore: cast_nullable_to_non_nullable
 as String,onboardedAt: null == onboardedAt ? _self.onboardedAt : onboardedAt // ignore: cast_nullable_to_non_nullable
-as DateTime,isHot: null == isHot ? _self.isHot : isHot // ignore: cast_nullable_to_non_nullable
-as bool,
+as DateTime,hotScore: null == hotScore ? _self.hotScore : hotScore // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 

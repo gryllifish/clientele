@@ -2,6 +2,7 @@ import 'package:clients_app/core/constants/app_durations.dart';
 import 'package:clients_app/core/error/failure.dart';
 import 'package:clients_app/core/l10n/failure_messages.dart';
 import 'package:clients_app/core/l10n/l10n.dart';
+import 'package:clients_app/core/router/app_routes.dart';
 import 'package:clients_app/core/theme/app_colors.dart';
 import 'package:clients_app/core/theme/app_radius.dart';
 import 'package:clients_app/core/theme/app_spacing.dart';
@@ -15,6 +16,7 @@ import 'package:clients_app/shared/widgets/app_bottom_nav.dart';
 import 'package:clients_app/shared/widgets/error_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 /// White sheet with the title, filters and the client grid.
 class ClientsSection extends ConsumerWidget {
@@ -28,30 +30,32 @@ class ClientsSection extends ConsumerWidget {
     final bottomInset =
         MediaQuery.paddingOf(context).bottom +
         AppBottomNav.height +
-        AppSpacing.xl;
+        AppSpacing.xxl;
 
     return DecoratedBox(
       decoration: const BoxDecoration(
         color: AppColors.surface,
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(AppRadius.sheet),
-        ),
+        borderRadius: AppRadius.sheetTop,
       ),
       child: Padding(
-        padding: EdgeInsets.only(top: AppSpacing.xxl, bottom: bottomInset),
+        padding: EdgeInsets.only(top: AppSpacing.xl, bottom: bottomInset),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _SectionTitle(count: clients.value?.length),
-            const SizedBox(height: AppSpacing.xl),
+            const SizedBox(height: AppSpacing.lg),
             const ClientFilterChips(),
-            const SizedBox(height: AppSpacing.xl),
+            const SizedBox(height: AppSpacing.lg),
             Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: AppSpacing.screenHorizontal,
+                horizontal: AppSpacing.sheetHorizontal,
               ),
               child: switch (clients) {
-                AsyncData(:final value) => AnimatedClientGrid(clients: value),
+                AsyncData(:final value) => AnimatedClientGrid(
+                  clients: value,
+                  onClientTap: (client) =>
+                      context.go(AppRoutes.clientProfilePath(client.id)),
+                ),
                 AsyncError(:final error) => ErrorView(
                   message: _errorMessage(context, error),
                   onRetry: ref.read(clientsControllerProvider.notifier).retry,
@@ -80,18 +84,18 @@ class _SectionTitle extends StatelessWidget {
   /// Null while loading.
   final int? count;
 
+  static const _horizontalPadding = 22.0;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.screenHorizontal,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.baseline,
         textBaseline: TextBaseline.alphabetic,
-        spacing: AppSpacing.md,
+        spacing: AppSpacing.sm,
         children: [
-          Text(context.l10n.yourClients, style: AppTextStyles.sectionTitle),
+          Text(context.l10n.yourClients, style: AppTextStyles.title),
           AnimatedSwitcher(
             duration: AppDurations.fast,
             transitionBuilder: (child, animation) => FadeTransition(
@@ -110,7 +114,9 @@ class _SectionTitle extends StatelessWidget {
                 null => '',
               },
               key: ValueKey(count),
-              style: AppTextStyles.body,
+              style: AppTextStyles.caption.copyWith(
+                color: AppColors.inkSubtle,
+              ),
             ),
           ),
         ],

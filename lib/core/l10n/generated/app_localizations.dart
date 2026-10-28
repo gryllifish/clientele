@@ -211,6 +211,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Retry'**
   String get retry;
+
+  /// No description provided for @brandMark.
+  ///
+  /// In en, this message translates to:
+  /// **'fl.'**
+  String get brandMark;
+
+  /// No description provided for @search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @moreOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'More options'**
+  String get moreOptions;
+
+  /// No description provided for @openClientProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Open {name}\'s profile'**
+  String openClientProfile(String name);
+
+  /// No description provided for @clientProfileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Client profile'**
+  String get clientProfileTitle;
+
+  /// No description provided for @workingTogetherSince.
+  ///
+  /// In en, this message translates to:
+  /// **'Working together since {year}'**
+  String workingTogetherSince(String year);
+
+  /// No description provided for @roleAtLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'{role} · {location}'**
+  String roleAtLocation(String role, String location);
+
+  /// No description provided for @totalValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Total value'**
+  String get totalValue;
+
+  /// No description provided for @projects.
+  ///
+  /// In en, this message translates to:
+  /// **'Projects'**
+  String get projects;
+
+  /// No description provided for @rating.
+  ///
+  /// In en, this message translates to:
+  /// **'Rating'**
+  String get rating;
+
+  /// No description provided for @nextSession.
+  ///
+  /// In en, this message translates to:
+  /// **'Next session'**
+  String get nextSession;
+
+  /// No description provided for @sessionTime.
+  ///
+  /// In en, this message translates to:
+  /// **'{time} · {minutes} min'**
+  String sessionTime(String time, int minutes);
+
+  /// No description provided for @latestNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest note'**
+  String get latestNote;
+
+  /// No description provided for @errorNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t find that client.'**
+  String get errorNotFound;
+
+  /// No description provided for @valuePlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'–'**
+  String get valuePlaceholder;
 }
 
 class _AppLocalizationsDelegate

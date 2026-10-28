@@ -19,7 +19,7 @@ class ClientFilterChips extends ConsumerWidget {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       padding: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.screenHorizontal,
+        horizontal: AppSpacing.sheetHorizontal,
       ),
       child: Row(
         spacing: AppSpacing.sm,
@@ -57,6 +57,13 @@ class _FilterChip extends StatelessWidget {
   final bool selected;
   final VoidCallback onTap;
 
+  // The selected chip grows a little, as in the design.
+  static const _padding = EdgeInsets.symmetric(horizontal: 14, vertical: 9);
+  static const _selectedPadding = EdgeInsets.symmetric(
+    horizontal: 19,
+    vertical: 9,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Semantics(
@@ -67,17 +74,14 @@ class _FilterChip extends StatelessWidget {
         child: AnimatedContainer(
           duration: AppDurations.fast,
           curve: Curves.easeOutCubic,
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.xl,
-            vertical: AppSpacing.md,
-          ),
+          padding: selected ? _selectedPadding : _padding,
           decoration: BoxDecoration(
             color: selected ? AppColors.ink : AppColors.chip,
             borderRadius: AppRadius.pillBorder,
           ),
           child: AnimatedDefaultTextStyle(
             duration: AppDurations.fast,
-            style: AppTextStyles.body.copyWith(
+            style: AppTextStyles.chip.copyWith(
               color: selected ? AppColors.surface : AppColors.inkMuted,
             ),
             child: Text(label),

@@ -13,6 +13,7 @@ sealed class AppException implements Exception {
   Failure toFailure() => switch (this) {
     StorageException() => StorageFailure(cause: this),
     ParsingException() => ParsingFailure(cause: this),
+    NotFoundException() => NotFoundFailure(cause: this),
   };
 
   @override
@@ -25,4 +26,8 @@ final class StorageException extends AppException {
 
 final class ParsingException extends AppException {
   const ParsingException(super.message, {super.cause});
+}
+
+final class NotFoundException extends AppException {
+  const NotFoundException(super.message, {super.cause});
 }

@@ -19,9 +19,12 @@ class _FakeAssetBundle extends CachingAssetBundle {
 }
 
 const _validJson = '''
-[{"id": 1, "name": "Maya", "role": "Designer",
-  "photo_asset": "a.jpg", "onboarded_at": "2026-05-20T10:00:00Z",
-  "is_hot": true}]
+[{"id": 1, "name": "Maya", "role": "Designer", "photo_asset": "a.jpg",
+  "onboarded_at": "2024-05-20T09:00:00", "hot_score": 8,
+  "profile": {"location": "Brooklyn, NY", "total_value": 18400,
+    "project_count": 12, "rating": 4.9,
+    "next_session_at": "2024-05-27T10:30:00", "next_session_minutes": 60,
+    "latest_note": "Approved."}}]
 ''';
 
 void main() {
@@ -33,25 +36,24 @@ void main() {
         now: now ?? authoredAt,
       );
 
-  group('ClientsLocalDataSource.fetchClients', () {
+  group('fetchClients', () {
     test('parses snake_case JSON into DTOs', () async {
       final clients = await buildDataSource(_validJson).fetchClients();
 
       expect(clients, hasLength(1));
       expect(clients.single.photoAsset, 'a.jpg');
-      expect(clients.single.isHot, isTrue);
+      expect(clients.single.hotScore, 8);
     });
 
-    test('shifts dates by the time elapsed since the mock was authored', () {
-      const elapsed = Duration(days: 10);
+    test('shifts dates by whole days, keeping the time of day', () async {
+      final now = authoredAt.add(const Duration(days: 10, hours: 7));
 
-      expect(
-        buildDataSource(
-          _validJson,
-          now: authoredAt.add(elapsed),
-        ).fetchClients().then((c) => c.single.onboardedAt),
-        completion(DateTime.utc(2026, 5, 20, 10).add(elapsed)),
-      );
+      final clients = await buildDataSource(
+        _validJson,
+        now: now,
+      ).fetchClients();
+
+      expect(clients.single.onboardedAt, DateTime(2024, 5, 30, 9));
     });
 
     test('throws StorageException when the asset is missing', () {
@@ -65,6 +67,28 @@ void main() {
       expect(
         buildDataSource('{not json').fetchClients(),
         throwsA(isA<ParsingException>()),
+      );
+    });
+  });
+
+  group('fetchClientProfile', () {
+    test('parses the nested profile and shifts the session date', () async {
+      final now = authoredAt.add(const Duration(days: 3));
+
+      final profile = await buildDataSource(
+        _validJson,
+        now: now,
+      ).fetchClientProfile(1);
+
+      expect(profile.location, 'Brooklyn, NY');
+      expect(profile.nextSessionMinutes, 60);
+      expect(profile.nextSessionAt, DateTime(2024, 5, 30, 10, 30));
+    });
+
+    test('throws NotFoundException for unknown ids', () {
+      expect(
+        buildDataSource(_validJson).fetchClientProfile(99),
+        throwsA(isA<NotFoundException>()),
       );
     });
   });

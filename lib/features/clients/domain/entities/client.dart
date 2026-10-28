@@ -14,8 +14,8 @@ abstract class Client with _$Client {
     required String photoAsset,
     required DateTime onboardedAt,
 
-    /// Highlighted clients, shown under the "Hot" filter.
-    @Default(false) bool isHot,
+    /// How active the relationship is right now; higher is hotter.
+    required int hotScore,
   }) = _Client;
 
   const Client._();

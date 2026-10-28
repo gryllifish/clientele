@@ -12,7 +12,7 @@ _ClientDto _$ClientDtoFromJson(Map<String, dynamic> json) => _ClientDto(
   role: json['role'] as String,
   photoAsset: json['photo_asset'] as String,
   onboardedAt: DateTime.parse(json['onboarded_at'] as String),
-  isHot: json['is_hot'] as bool? ?? false,
+  hotScore: (json['hot_score'] as num).toInt(),
 );
 
 Map<String, dynamic> _$ClientDtoToJson(_ClientDto instance) =>
@@ -22,5 +22,5 @@ Map<String, dynamic> _$ClientDtoToJson(_ClientDto instance) =>
       'role': instance.role,
       'photo_asset': instance.photoAsset,
       'onboarded_at': instance.onboardedAt.toIso8601String(),
-      'is_hot': instance.isHot,
+      'hot_score': instance.hotScore,
     };

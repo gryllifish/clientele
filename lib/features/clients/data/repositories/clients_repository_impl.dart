@@ -3,6 +3,7 @@ import 'package:clients_app/core/error/result.dart';
 import 'package:clients_app/features/clients/data/datasources/clients_local_data_source.dart';
 import 'package:clients_app/features/clients/data/mappers/client_mapper.dart';
 import 'package:clients_app/features/clients/domain/entities/client.dart';
+import 'package:clients_app/features/clients/domain/entities/client_profile.dart';
 import 'package:clients_app/features/clients/domain/repositories/clients_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -18,6 +19,13 @@ class ClientsRepositoryImpl implements ClientsRepository {
     final dtos = await _localDataSource.fetchClients();
     return List.unmodifiable(dtos.map((dto) => dto.toEntity()));
   });
+
+  @override
+  Future<Result<ClientProfile>> getClientProfile(int clientId) =>
+      guard(() async {
+        final dto = await _localDataSource.fetchClientProfile(clientId);
+        return dto.toEntity(clientId: clientId);
+      });
 }
 
 /// Exposes the interface, so tests and features depend on the abstraction.

@@ -64,4 +64,60 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get retry => 'Reintentar';
+
+  @override
+  String get brandMark => 'fl.';
+
+  @override
+  String get search => 'Buscar';
+
+  @override
+  String get back => 'Volver';
+
+  @override
+  String get moreOptions => 'Más opciones';
+
+  @override
+  String openClientProfile(String name) {
+    return 'Abrir el perfil de $name';
+  }
+
+  @override
+  String get clientProfileTitle => 'Perfil del cliente';
+
+  @override
+  String workingTogetherSince(String year) {
+    return 'Trabajando juntos desde $year';
+  }
+
+  @override
+  String roleAtLocation(String role, String location) {
+    return '$role · $location';
+  }
+
+  @override
+  String get totalValue => 'Valor total';
+
+  @override
+  String get projects => 'Proyectos';
+
+  @override
+  String get rating => 'Valoración';
+
+  @override
+  String get nextSession => 'Próxima sesión';
+
+  @override
+  String sessionTime(String time, int minutes) {
+    return '$time · $minutes min';
+  }
+
+  @override
+  String get latestNote => 'Última nota';
+
+  @override
+  String get errorNotFound => 'No encontramos ese cliente.';
+
+  @override
+  String get valuePlaceholder => '–';
 }

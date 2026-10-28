@@ -18,5 +18,21 @@
   "navSettings": "Ajustes",
   "errorLoadData": "No pudimos cargar tus datos.",
   "errorUnexpected": "Algo salió mal.",
-  "retry": "Reintentar"
+  "retry": "Reintentar",
+  "brandMark": "fl.",
+  "search": "Buscar",
+  "back": "Volver",
+  "moreOptions": "Más opciones",
+  "openClientProfile": "Abrir el perfil de {name}",
+  "clientProfileTitle": "Perfil del cliente",
+  "workingTogetherSince": "Trabajando juntos desde {year}",
+  "roleAtLocation": "{role} · {location}",
+  "totalValue": "Valor total",
+  "projects": "Proyectos",
+  "rating": "Valoración",
+  "nextSession": "Próxima sesión",
+  "sessionTime": "{time} · {minutes} min",
+  "latestNote": "Última nota",
+  "errorNotFound": "No encontramos ese cliente.",
+  "valuePlaceholder": "–"
 }

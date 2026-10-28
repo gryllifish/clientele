@@ -1,5 +1,8 @@
+import 'package:clients_app/core/constants/app_durations.dart';
 import 'package:clients_app/core/router/app_routes.dart';
+import 'package:clients_app/features/clients/presentation/screens/client_profile_screen.dart';
 import 'package:clients_app/features/clients/presentation/screens/home_screen.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -14,9 +17,48 @@ GoRouter appRouter(Ref ref) {
       GoRoute(
         path: AppRoutes.home,
         builder: (context, state) => const HomeScreen(),
+        routes: [
+          GoRoute(
+            path: AppRoutes.clientProfile,
+            redirect: (context, state) =>
+                _clientIdOf(state) == null ? AppRoutes.home : null,
+            pageBuilder: (context, state) => _fadeThroughPage(
+              state,
+              ClientProfileScreen(clientId: _clientIdOf(state) ?? 0),
+            ),
+          ),
+        ],
       ),
     ],
   );
   ref.onDispose(router.dispose);
   return router;
+}
+
+int? _clientIdOf(GoRouterState state) =>
+    int.tryParse(state.pathParameters[AppRoutes.clientIdParam] ?? '');
+
+/// Fade with a slight rise, so the Hero photo is the star of the transition.
+CustomTransitionPage<void> _fadeThroughPage(GoRouterState state, Widget child) {
+  const riseOffset = Offset(0, 0.015);
+
+  return CustomTransitionPage<void>(
+    key: state.pageKey,
+    transitionDuration: AppDurations.page,
+    reverseTransitionDuration: AppDurations.medium,
+    child: child,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      final curved = CurvedAnimation(
+        parent: animation,
+        curve: AppCurves.emphasized,
+      );
+      return FadeTransition(
+        opacity: curved,
+        child: SlideTransition(
+          position: Tween(begin: riseOffset, end: Offset.zero).animate(curved),
+          child: child,
+        ),
+      );
+    },
+  );
 }

@@ -3,8 +3,10 @@ import 'package:clients_app/core/error/failure.dart';
 import 'package:clients_app/core/error/result.dart';
 import 'package:clients_app/features/clients/data/datasources/clients_local_data_source.dart';
 import 'package:clients_app/features/clients/data/models/client_dto.dart';
+import 'package:clients_app/features/clients/data/models/client_profile_dto.dart';
 import 'package:clients_app/features/clients/data/repositories/clients_repository_impl.dart';
 import 'package:clients_app/features/clients/domain/entities/client.dart';
+import 'package:clients_app/features/clients/domain/entities/client_profile.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -19,15 +21,15 @@ void main() {
     repository = ClientsRepositoryImpl(dataSource);
   });
 
-  group('ClientsRepositoryImpl.getClients', () {
+  group('getClients', () {
     test('maps DTOs to entities', () async {
       final dto = ClientDto(
         id: 1,
         name: 'Maya',
         role: 'Designer',
         photoAsset: 'a.jpg',
-        onboardedAt: DateTime.utc(2026, 5, 20),
-        isHot: true,
+        onboardedAt: DateTime(2024, 5, 20),
+        hotScore: 8,
       );
       when(dataSource.fetchClients).thenAnswer((_) async => [dto]);
 
@@ -40,7 +42,7 @@ void main() {
           'client',
           isA<Client>()
               .having((c) => c.id, 'id', 1)
-              .having((c) => c.isHot, 'isHot', isTrue),
+              .having((c) => c.hotScore, 'hotScore', 8),
         ),
       );
     });
@@ -58,6 +60,57 @@ void main() {
           (err) => err.failure,
           'failure',
           isA<ParsingFailure>(),
+        ),
+      );
+    });
+  });
+
+  group('getClientProfile', () {
+    test('maps the DTO, including the session duration', () async {
+      final dto = ClientProfileDto(
+        location: 'Brooklyn, NY',
+        totalValue: 18400,
+        projectCount: 12,
+        rating: 4.9,
+        nextSessionAt: DateTime(2024, 5, 27, 10, 30),
+        nextSessionMinutes: 60,
+        latestNote: 'Approved.',
+      );
+      when(
+        () => dataSource.fetchClientProfile(1),
+      ).thenAnswer((_) async => dto);
+
+      final result = await repository.getClientProfile(1);
+
+      expect(
+        result,
+        isA<Ok<ClientProfile>>().having(
+          (ok) => ok.value,
+          'profile',
+          isA<ClientProfile>()
+              .having((p) => p.clientId, 'clientId', 1)
+              .having(
+                (p) => p.nextSession.duration,
+                'duration',
+                const Duration(minutes: 60),
+              ),
+        ),
+      );
+    });
+
+    test('returns a NotFoundFailure for unknown clients', () async {
+      when(
+        () => dataSource.fetchClientProfile(99),
+      ).thenThrow(const NotFoundException('missing'));
+
+      final result = await repository.getClientProfile(99);
+
+      expect(
+        result,
+        isA<Err<ClientProfile>>().having(
+          (err) => err.failure,
+          'failure',
+          isA<NotFoundFailure>(),
         ),
       );
     });
